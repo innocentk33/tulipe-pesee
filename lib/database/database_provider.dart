@@ -22,6 +22,7 @@ class DatabaseProvider {
         sourceRefa46Noa46 TEXT,
         lotNoa46 TEXT,
         quantity TEXT,
+        
         locationCode TEXT,
         createdBy TEXT,
         numPalette TEXT

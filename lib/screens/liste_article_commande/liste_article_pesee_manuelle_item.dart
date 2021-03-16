@@ -69,7 +69,6 @@ class _ListeArticlePeseeManuelleItemState
                     Text(
                       "Nombre de cartons : ${item.nombreDeCartons}",
                     ),
-                    VSpacer.normal,
                     Text(
                       "Poids : ${item.poids1}",
                     ),

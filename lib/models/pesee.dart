@@ -17,6 +17,8 @@ class Pesee {
   String idPesee;
   String lotNoa46;
   String quantity;
+  String poidArticle;
+  String nombreArticle;
   String articleNo;
   String locationCode;
   String entryNoa46;
@@ -61,6 +63,8 @@ class Pesee {
     this.isPreparateur = false,
     this.isVerificateur = false,
     this.noLigne,
+    this.poidArticle,
+    this.nombreArticle,
   });
 
   Map<String, dynamic> toMap() {

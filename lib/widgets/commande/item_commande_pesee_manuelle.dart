@@ -27,16 +27,30 @@ class ItemCommandePeseeManuelle extends StatefulWidget {
 class _ItemCommandePeseeManuelleState extends State<ItemCommandePeseeManuelle> {
   String userName;
   Commande commande;
+  String dateCommande ="";
+  String heureCommande ="";
 
   @override
   void initState() {
     commande = widget.item;
-    super.initState();
+    dateCommande =commande.creationDate;
+        super.initState();
     GetStorageService.getLogin().then((value) => userName = value);
+  }
+  @override
+  void setState(fn) {
+
+    // TODO: implement setState
+    super.setState(fn);
   }
 
   @override
   Widget build(BuildContext context) {
+
+ print(dateCommande.substring(0,10));
+
+   heureCommande = dateCommande.substring(12,15);
+   print(dateCommande);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Column(
@@ -51,8 +65,9 @@ class _ItemCommandePeseeManuelleState extends State<ItemCommandePeseeManuelle> {
                       color: Colors.pink, fontWeight: FontWeight.bold),
                 ),
               ),
+
               Text(
-                commande.creationDate,
+                "${dateCommande.substring(0,10) + " à "+dateCommande.substring(11,16)}",
                 style: TextStyle(fontWeight: FontWeight.bold),
               )
             ],
@@ -74,7 +89,12 @@ class _ItemCommandePeseeManuelleState extends State<ItemCommandePeseeManuelle> {
                     ),
                     Text("Commercial: ${commande.salePersonCode}"),
                     Text("Préparateur: ${commande.preparateur ?? ''}"),
-                    Text("Vérificateur: ${commande.verificateur ?? ''}"),
+                    Visibility(
+                      visible: false,
+                      child: Text(
+
+                          "Vérificateur: ${commande.verificateur ?? ''}",),
+                    ),
                     Text("Statut pesée: "),
                   ],
                 ),
@@ -83,15 +103,16 @@ class _ItemCommandePeseeManuelleState extends State<ItemCommandePeseeManuelle> {
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Button("Peseur", onPressed: () {
+                  Button("Traiter", onPressed: () {
                     checkPeseur();
                   }),
-                  Button("Vérificateur", onPressed: () {
+
+               /*   Button("Vérificateur", onPressed: () {
                     checkVerificateur();
                   }),
                   Button("Valider",
                       onPressed: () => widget
-                          .callback(ItemCommandePeseeManuelleAction.VALIDER)),
+                          .callback(ItemCommandePeseeManuelleAction.VALIDER)),*/
                 ],
               ))
             ],
