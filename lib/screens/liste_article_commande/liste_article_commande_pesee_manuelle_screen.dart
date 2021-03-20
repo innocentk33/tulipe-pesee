@@ -62,51 +62,105 @@ class _ListeArticleCommandePeseeManuelleScreenState
           )
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Obx(() {
-          if (listeArticleController.isLoading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+      body: Obx(() {
+        if (listeArticleController.isLoading) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
 
-          return listeArticleController.response.when(
-            error: (String message) {
-              return ErrorMessage(
-                message: message,
-                retry: () => _getArticles(),
-              );
-            },
-            data: (List<Article> items) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    child: ListData<Article>(
-                      emptyMessage: "Aucun article pour cette commande",
-                      onClick: (item) {
-                        toNextScreen(item);
-                      },
-                      items: items,
-                      data: (Article item) {
-                        return ListeArticlePeseeManuelleItem(item: item, click: (){
-                          Get.to(VentePeseeManuelleScreen(article: item,));
-                        });
-                      },
+        return listeArticleController.response.when(
+          error: (String message) {
+            return ErrorMessage(
+              message: message,
+              retry: () => _getArticles(),
+            );
+          },
+          data: (List<Article> items) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: ListData<Article>(
+                    emptyMessage: "Aucun article pour cette commande",
+                    onClick: (item) {
+                      toNextScreen(item);
+                    },
+                    items: items,
+                    data: (Article item) {
+                      return ListeArticlePeseeManuelleItem(item: item, click: (){
+                        Get.to(VentePeseeManuelleScreen(article: item,));
+                      });
+                    },
+                  ),
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height/9,
+                  color: Colors.green,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 2),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+
+                          width: MediaQuery.of(context).size.width/1.4,
+                          child: Column(
+
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Validateur :",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w900,
+
+                                ),),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+
+                                  Text("15,26KG:",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w900,
+
+                                    ),),
+                                  Text("000XXX"),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        Column(
+
+                          children: [
+
+                            MaterialButton(
+                              color: Colors.white,
+                              onPressed: (){
+                                print("click");
+
+                              },
+                              child: Text("Valider"),
+                            ),
+                          ],
+                        ),
+
+                      ],
                     ),
                   ),
-                  /*if (widget.menu == NavigationMenu.VENTE_EN_COURS_PREPARATION)
-                    Button(
-                      "Valider",
-                      onPressed: () => _updateStatusCommande(),
-                    )*/
-                ],
-              );
-            },
-          );
-        }),
-      ),
+                ),
+                /*if (widget.menu == NavigationMenu.VENTE_EN_COURS_PREPARATION)
+                  Button(
+                    "Valider",
+                    onPressed: () => _updateStatusCommande(),
+                  )*/
+              ],
+            );
+          },
+        );
+      }),
     );
   }
 

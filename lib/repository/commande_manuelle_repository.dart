@@ -20,6 +20,8 @@ class CommandeManuelleRepositoryImpl extends CommandeManuelleRepository {
 
   @override
   Future<ApiResponse<Commande>> updateNomPeseur(String noCommande) => client.updateNomPeseur(noCommande);
+  @override
+  Future<ApiResponse<Commande>> setComLinPeseeActeur(String noCommande) => client.setComLinPeseeActeur(noCommande);
 
   @override
   Future<ApiResponse<Commande>> updateNomVerificateur(String noCommande) => client.updateNomVerificateur(noCommande);

@@ -36,7 +36,7 @@ class _VenteDashboardScreeState extends State<VenteDashboardScreen> {
               codeTraitement: 1,
             ),
             VenteDashboardButton(
-              text: "En cours de préparation",
+              text: "En cours  de préparation",
               onPressed: () => goToEnCoursPreparation(),
               codeTraitement: 2,
             ),

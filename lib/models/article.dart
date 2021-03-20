@@ -77,6 +77,7 @@ class Article {
   String verificateur;
   bool controle;
   String poids1;
+  String cartonPeseur;
 
   Article({
     this.key,
@@ -155,6 +156,7 @@ class Article {
     this.verificateur,
     this.controle,
     this.poids1,
+    this.cartonPeseur,
   });
 
   factory Article.fromXml(XmlElement personNode) {
@@ -218,6 +220,7 @@ class Article {
     var controleNode = personNode.findAllElements('Controle');
 
     var poids1Node = personNode.findAllElements('Total_1');
+    var cartonPeseur = personNode.findAllElements("Cartons_peseur");
 
     return Article(
       key: keyValue,
@@ -237,6 +240,7 @@ class Article {
       preparateur: preparateurNode.isEmpty ? null : preparateurNode.first.text,
       controle: controleNode.isEmpty ? false : (controleNode.first.text == "true"),
       poids1: poids1Node.isEmpty ? "0" : (poids1Node.first.text),
+      cartonPeseur: cartonPeseur.isEmpty ? "0" : (cartonPeseur.first.text),
     );
   }
 }

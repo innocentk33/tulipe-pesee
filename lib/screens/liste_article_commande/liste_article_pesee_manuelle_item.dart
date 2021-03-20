@@ -4,6 +4,7 @@ import 'package:fish_scan/screens/liste_article_commande/liste_article_item_cont
 import 'package:fish_scan/widgets/spacers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 
 import '../../widgets/button/button.dart';
 
@@ -46,37 +47,105 @@ class _ListeArticlePeseeManuelleItemState
           child: Row(
             children: [
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text(
-                      item.description,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                      children: [
+                        Expanded(
+                          child: Text(
+                            item.description,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Text(
+                          "${item.controle ? 'CORRECTE' : 'INCORECTE'}",
+
+                          style: TextStyle(fontWeight: FontWeight.bold,
+                          color: item.controle ?Colors.green:Colors.red,
+
+                          ),
+
+                        )
+                      ],
                     ),
                     VSpacer.normal,
-                    Text(
-                      "Statut pesée: ${item.controle ? 'Validé' : 'Invalide'}",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+
+
+                    Row(
+                      children: [
+                        Text(
+                          "Peseur:",
+                        ),
+                        Text("${item.preparateur ?? ""}",style: TextStyle(
+                          fontWeight: FontWeight
+                              .w900,
+
+                        ),)
+                      ],
                     ),
-                    VSpacer.normal,
-                    Text(
-                      "Préparateur: ${item.preparateur ?? ""}",
+                    Row(
+                      children: [
+                        Text(
+                          "Vérificateur: ",
+                        ),
+                        Text("${item.verificateur ?? ""}",style: TextStyle(
+                          fontWeight: FontWeight
+                              .w900,
+
+                        ),)
+                      ],
                     ),
-                    Text(
-                      "Vérificateur: ${item.verificateur ?? ""}",
+                    Row(
+                      children: [
+                        Text(
+                          "Cartons : ",
+                        ),
+                        Text("${item.cartonPeseur}",style: TextStyle(
+                          fontWeight: FontWeight
+                              .w900,
+
+                        ),)
+                      ],
                     ),
-                    Text(
-                      "Nombre de cartons : ${item.nombreDeCartons}",
+                    Row(
+                      children: [
+                        Text(
+                          "Poids :",
+                        ),
+                        Text("${item.poids1}",style: TextStyle(
+                          fontWeight: FontWeight
+                              .w900,
+
+                        ),)
+                      ],
                     ),
-                    Text(
-                      "Poids : ${item.poids1}",
+                    Row(
+                      children: [
+                        Text(
+                          "Prix :",
+                        ),
+                        Text("${item.unitPrice} FCFA",style: TextStyle(
+                          fontWeight: FontWeight
+                              .w900,
+
+                        ),)
+                      ],
                     ),
-                    Text(
-                      "Prix : ${item.unitPrice} FCFA",
-                    ),
-                    Text(
-                      "Montant : ${item.unitPrice * double.parse(item.poids1)} FCFA",
+                    Row(
+                      children: [
+                        Text(
+                          "Montant :",
+                        ),
+                        Text("${item.unitPrice * double.parse(item.poids1)} FCFA",style: TextStyle(
+                          fontWeight: FontWeight
+                              .w900,
+
+                        ),)
+                      ],
                     ),
                     VSpacer.normal,
                   ],
@@ -98,6 +167,7 @@ class _ListeArticlePeseeManuelleItemState
           color: Colors.black,
         ),
         VSpacer.normal,
+
       ],
     );
   }
