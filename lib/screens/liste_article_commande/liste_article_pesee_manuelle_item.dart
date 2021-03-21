@@ -156,6 +156,7 @@ class _ListeArticlePeseeManuelleItemState
                   "Saisir",
                   onPressed: () {
                     widget.click();
+
                   },
                 ),
               )

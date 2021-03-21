@@ -78,6 +78,8 @@ class Article {
   bool controle;
   String poids1;
   String cartonPeseur;
+  double quantity_base;
+  double budget;
 
   Article({
     this.key,
@@ -157,6 +159,8 @@ class Article {
     this.controle,
     this.poids1,
     this.cartonPeseur,
+    this.budget,
+    this.quantity_base,
   });
 
   factory Article.fromXml(XmlElement personNode) {
@@ -165,7 +169,7 @@ class Article {
         ? 0
         : double.parse(directUnitCostNode.first.text);
 
-    var qtyBaseNode = personNode.findAllElements('Quantié_base');
+    var qtyBaseNode = personNode.findAllElements('Quantity_base');
     double qtyBase =
         qtyBaseNode.isEmpty ? 0 : double.parse(qtyBaseNode.first.text);
 
@@ -194,13 +198,14 @@ class Article {
     var documentNoValue =
         documentNoNode.isEmpty ? "" : documentNoNode.first.text;
 
-    var nombreCartonsNode = personNode.findAllElements('Nombre_de_cartons');
+    var nombreCartonsNode = personNode.findAllElements('Nombre_de_carton');
     var nombreCartonsValue =
         nombreCartonsNode.isEmpty ? "0" : nombreCartonsNode.first.text;
-
+    var budget = personNode.findAllElements("Budget");
+    var budgetValue = budget.isEmpty?0:budget.first.text;
+    var quantityBase = qtyBaseNode.isEmpty ? 0 : double.parse(qtyBaseNode.first.text);
     var quantityNode = personNode.findAllElements('Quantity');
-    var quantityNodeValue =
-        quantityNode.isEmpty ? "0" : quantityNode.first.text;
+    var quantityNodeValue = quantityNode.isEmpty ? "0" : quantityNode.first.text;
 
     var descriptionNode = personNode.findAllElements('Description');
     var descriptionValue =
@@ -229,6 +234,8 @@ class Article {
       nombreDeCartons: int.parse(nombreCartonsValue),
       directUnitCost: directUnitCost,
       quantity: double.parse(quantityNodeValue),
+      budget: double.parse(budgetValue),
+      quantity_base: quantityBase,
       description: descriptionValue,
       locationCode: locationCodeValue,
       lineNo: lineNoValue,

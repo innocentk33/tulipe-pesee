@@ -10,6 +10,7 @@ import 'package:xml/xml.dart';
 class TracabiliteClient {
   SoapClient<Pesee> soapPeseeClient = SoapClient();
   SoapClient<Tracabilite> soapTracabiliteClient = SoapClient();
+  SoapClient<Article> soapArticle = SoapClient();
 
   Future<ApiResponse<Tracabilite>> submitTracabilite(
       Tracabilite tracabilite, int sourceType, int sourceSubType) async {
@@ -233,6 +234,7 @@ class TracabiliteClient {
   Future<ApiResponse<Pesee>> getPeseeManuelle(Article article) async {
     print("getPesee");
     List<Pesee> pesees = List();
+    String username = await GetStorageService.getLogin();
 
     var body = '''
     <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
@@ -245,6 +247,10 @@ class TracabiliteClient {
             <filter>
                 <Field>No</Field>
                 <Criteria>${article.no}</Criteria>
+            </filter>   
+            <filter>
+                <Field>Peseur</Field>
+                <Criteria>$username</Criteria>
             </filter>
         </ReadMultiple>
     </Body>
@@ -373,16 +379,20 @@ class TracabiliteClient {
 
     var body = '''
  <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
-    <Body>
-        <SuprimerLesPesee xmlns="urn:microsoft-dynamics-schemas/codeunit/COMMANDESA">
+ 
+        
+          <Body>
+        <SuprimerUnePesee xmlns="urn:microsoft-dynamics-schemas/codeunit/COMMANDESA">
             <order_Noa46>${pesee.sourceID}</order_Noa46>
             <username>$username</username>
             <noArticle>${pesee.articleNo}</noArticle>
             <nombre>${pesee.lotNoa46}</nombre>
             <poids>${pesee.quantity}</poids>
             <total>${double.parse(pesee.quantity) * double.parse(pesee.lotNoa46)}</total>
-        </SuprimerLesPesee>
+        </SuprimerUnePesee>
     </Body>
+        
+  
 </Envelope>
     ''';
 
@@ -394,7 +404,7 @@ class TracabiliteClient {
     if (!response.hasError) {
       XmlDocument xmlDocument = XmlDocument.parse(response.body);
       var faultCodeNode =
-          xmlDocument.findAllElements("SuprimerLesPesee_Result");
+          xmlDocument.findAllElements("SuprimerUnePesee");
       if (faultCodeNode.isEmpty) {
         response.hasError = true;
       } else {
@@ -404,4 +414,40 @@ class TracabiliteClient {
 
     return response;
   }
+  Future<ApiResponse<Article>> suprimerLesPesees (Article article ) async {
+    String username = await GetStorageService.getLogin();
+
+    var body = '''
+        <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+    <Body>
+        <SuprimerLesPesees xmlns="urn:microsoft-dynamics-schemas/codeunit/COMMANDESA">
+            <order_Noa46>${article.documentNo}</order_Noa46>
+            <noArticle>${article.no}</noArticle>
+            <username>$username</username>
+        </SuprimerLesPesees>
+    </Body>
+</Envelope>
+    ''';
+
+    var response = await soapArticle.post(
+        url: "Codeunit/COMMANDESA",
+        action: 'urn:microsoft-dynamics-schemas/codeunit/COMMANDESA',
+        body: body);
+
+
+    if (!response.hasError) {
+      XmlDocument xmlDocument = XmlDocument.parse(response.body);
+      var faultCodeNode =
+          xmlDocument.findAllElements("SuprimerLesPesees");
+      if (faultCodeNode.isEmpty) {
+        response.hasError = true;
+      }
+    } else{
+      print(response.body);
+    }
+    return response;
+  }
+
+
+
 }

@@ -125,5 +125,6 @@ class DatabaseProvider {
     return db.delete(table_pesee, where: 'idPesee = ?', whereArgs: [id]);
   }
 
+
   Future close() async => db.close();
 }

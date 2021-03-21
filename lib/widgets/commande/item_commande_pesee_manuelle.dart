@@ -133,11 +133,11 @@ class _ItemCommandePeseeManuelleState extends State<ItemCommandePeseeManuelle> {
       widget.callback(ItemCommandePeseeManuelleAction.PESEUR);
       return;
     }
-    if (commande.preparateur != userName) {
+    /*if (commande.preparateur != userName) {
       showInfoDialog(context,
           message: "Vous n'êtes pas peseur pour cette commande");
       return;
-    }
+    }*/
     openCommande();
   }
 

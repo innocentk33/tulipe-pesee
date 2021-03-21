@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fish_scan/models/article.dart';
 import 'package:fish_scan/models/parametre.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,6 +36,7 @@ class GetStorageService {
   static Future<Parametre> clearUserLogin() async {
     await _getStorage.remove(_userInfoKey);
   }
+
 
   static Future clearAll() async {
     _getStorage.erase();

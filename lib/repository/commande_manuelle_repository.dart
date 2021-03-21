@@ -10,6 +10,8 @@ abstract class CommandeManuelleRepository {
   Future<ApiResponse<Commande>> updateNomPeseur(String noCommande);
   Future<ApiResponse<Commande>> updateNomVerificateur(String noCommande);
   Future<ApiResponse<Commande>> validerPesee(String noCommande);
+  Future<ApiResponse<Commande>> setComLinPeseeActeur(String noCommande , String article);
+
 }
 
 class CommandeManuelleRepositoryImpl extends CommandeManuelleRepository {
@@ -20,8 +22,9 @@ class CommandeManuelleRepositoryImpl extends CommandeManuelleRepository {
 
   @override
   Future<ApiResponse<Commande>> updateNomPeseur(String noCommande) => client.updateNomPeseur(noCommande);
+
   @override
-  Future<ApiResponse<Commande>> setComLinPeseeActeur(String noCommande) => client.setComLinPeseeActeur(noCommande);
+  Future<ApiResponse<Commande>> setComLinPeseeActeur(String noCommande ,String article) => client.setComLinPeseeActeur(noCommande ,article);
 
   @override
   Future<ApiResponse<Commande>> updateNomVerificateur(String noCommande) => client.updateNomVerificateur(noCommande);

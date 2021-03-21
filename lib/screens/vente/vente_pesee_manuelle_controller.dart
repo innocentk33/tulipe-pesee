@@ -31,6 +31,7 @@ class VentePeseeManuelleController extends GetxController {
 
   List<Pesee> _pesees = [];
 
+
   String userLogin;
 
   setArticle(Article article) {
@@ -38,11 +39,14 @@ class VentePeseeManuelleController extends GetxController {
   }
 
   Future<ApiResponse> submitPesee() async {
+    print("ICI 1");
     var responseDelete =
-        await tracabiliteRepository.deletePeseesManuelle(_pesees.first);
-    if (responseDelete.hasError) {
+        await tracabiliteRepository.suprimerLesPesees(_article);
+/*    if (responseDelete.hasError) {
+      print("ICI ERROR ${responseDelete.body}");
       return responseDelete;
-    }
+    }*/
+    print("ICI 2");
     return sendPesee();
   }
 
@@ -57,6 +61,7 @@ class VentePeseeManuelleController extends GetxController {
   }
 
   Future<ApiResponse> sendPesee() async {
+    print("ICI 3");
     _response = await tracabiliteRepository.submitPeseeManuelle(_pesees);
     deletePeseeToDatabase(_response.items);
     return _response;
@@ -176,20 +181,29 @@ class VentePeseeManuelleController extends GetxController {
 
   bool get isLoadingSubmit => _isLoadingSubmit.value;
 
-  int get nombreCartons => _pesees == null ? 0 : _pesees.length;
+  int get nombreCartons =>  _pesees.fold(
+      0, (previousValue, element) =>
+      previousValue + int.parse(element.lotNoa46));
+
+  double get montant => _pesees.fold(
+      0,
+          (previousValue, element) =>
+           previousValue + double.parse(element.quantity) * double.parse(element.lotNoa46)  * _article.unitPrice )    ;
  // int get nbrCartons =>
 
   int get nombreCartonsDemandes =>
       _article == null ? 0 : _article.nombreDeCartons;
 
   double get poidsDemandes => _article == null ? 0: _article.quantityBase;
+  double get quantityBase => _article ==null?0:_article.quantityBase;
+  double get budget => _article==null?0: _article.budget;
 
   bool get isPoidsUnique => _isPoidsUnique.value;
 
   double get poidsTotal => _pesees.fold(
       0,
       (previousValue, element) =>
-          previousValue + double.parse(element.quantity));
+          previousValue + double.parse(element.quantity) * double.parse(element.lotNoa46));
 
   UnmodifiableListView<Pesee> get pesees => UnmodifiableListView(_pesees);
 
@@ -208,4 +222,17 @@ class VentePeseeManuelleController extends GetxController {
 
     return ApiResponse(hasError: true, message: "Aucun élément à supprimer");
   }
+
+
+  Future suprimerLesPesees(Article article) async {
+
+      tracabiliteRepository.suprimerLesPesees(article).whenComplete(() => (){
+        return "OK";
+      });
+
+  }
+
+
+
+
 }

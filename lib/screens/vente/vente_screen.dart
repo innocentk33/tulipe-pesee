@@ -2,6 +2,7 @@ import 'package:fish_scan/constants/strings.dart';
 import 'package:fish_scan/gen/assets.gen.dart';
 import 'package:fish_scan/models/article.dart';
 import 'package:fish_scan/screens/vente/vente_controller.dart';
+import 'package:fish_scan/screens/vente/vente_pesee_manuelle_controller.dart';
 import 'package:fish_scan/widgets/button/button.dart';
 import 'package:fish_scan/widgets/dialogs.dart';
 import 'package:fish_scan/widgets/input_text.dart';
@@ -21,6 +22,7 @@ class VenteScreen extends StatefulWidget {
 
 class _VenteScreenState extends State<VenteScreen> {
   final controller = Get.put(VenteController());
+  final ventePeseeManuelleController = Get.put(VentePeseeManuelleController());
   Article article;
   TextEditingController lotCtrl = TextEditingController();
   TextEditingController poidsCtrl = TextEditingController();
@@ -466,4 +468,5 @@ class _VenteScreenState extends State<VenteScreen> {
     }
     showInfoDialog(context, message: response.message ?? "");
   }
+
 }

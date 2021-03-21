@@ -195,7 +195,7 @@ class _DepotageScreenState extends State<DepotageScreen> {
                           color: Colors.red,
                         ),
                         Text(
-                          'Vider',
+                          'Vider de ',
                           style: TextStyle(
                               color: Colors.red, fontWeight: FontWeight.bold),
                         ),

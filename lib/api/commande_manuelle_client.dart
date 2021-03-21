@@ -75,8 +75,8 @@ class CommandeManuelleClient {
     }
     return response;
   }
-  Future<ApiResponse<Commande>> setComLinPeseeActeur(String noCommande ,String article , String user_app_name) async {
-
+  Future<ApiResponse<Commande>> setComLinPeseeActeur(String noCommande ,String article) async {
+    String nom = await GetStorageService.getLogin();
 
     var body = '''
           <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
@@ -89,7 +89,7 @@ class CommandeManuelleClient {
           
            <article>$article</article>
           
-           <user_app_name>$user_app_name</user_app_name>
+           <user_app_name>$nom</user_app_name>
           
            </setComLinPeseeActeur>
           

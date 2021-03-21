@@ -13,6 +13,8 @@ class Pesee {
   final String fpreparateur = 'fpreparateur';
   final String fverificateur = 'fverificateur';
 
+
+
   int id;
   String idPesee;
   String lotNoa46;
@@ -38,6 +40,7 @@ class Pesee {
   bool isPreparateur;
   bool isVerificateur;
   String noLigne;
+
 
   Pesee({
     this.quantity,
@@ -65,6 +68,7 @@ class Pesee {
     this.noLigne,
     this.poidArticle,
     this.nombreArticle,
+
   });
 
   Map<String, dynamic> toMap() {
@@ -77,6 +81,7 @@ class Pesee {
       '$fitemNoa46': this.itemNoa46,
       '$fsourceRefa46Noa46': this.sourceRefa46Noa46,
       '$fcreatedBy': this.createdBy,
+
       '$fverificateur': this.isVerificateur ? 1 : 0,
       '$fpreparateur': this.isPreparateur ? 1 : 0,
     };
@@ -110,6 +115,8 @@ class Pesee {
     var articleNo = element.findAllElements('Item_No');
     var lotNo = element.findAllElements('Lot_No');
     var createByNode = element.findAllElements('Created_By');
+    var unitPriceNode = element.findAllElements('Unit_Price');
+    double unitPrice =  unitPriceNode.isEmpty ? 0 : double.parse(unitPriceNode.first.text);
 
     var quantity = 0.0;
 
@@ -126,6 +133,7 @@ class Pesee {
     return Pesee(
       idPesee: "${lotNo}_${articleNo}",
       lotNoa46: lotNo.isEmpty ? "": lotNo.first.text,
+
       quantity:
       quantityNode.isEmpty ? "0" : "${quantity * -1}",
       articleNo: articleNo.isEmpty ? "" : articleNo.first.text,

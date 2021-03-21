@@ -21,6 +21,7 @@ abstract class TracabiliteRepository {
   Future<ApiResponse<Pesee>> deletePesees(Pesee pesee);
 
   Future<ApiResponse<Pesee>> deletePeseesManuelle(Pesee pesee);
+  Future<ApiResponse<Article>> suprimerLesPesees(Article article);
 
   Future<ApiResponse> updateCommandeQuantity(
       Article article, double quantity, int nombreCartons);
@@ -149,12 +150,20 @@ class TracabiliteRepositoryImpl extends TracabiliteRepository {
 
   @override
   Future<ApiResponse<Pesee>> submitPeseeManuelle(List<Pesee> pesees) async{
+    print("ICI 4");
     var dateFormat = DateFormat("yyyy-MM-dd");
     var currentDate = dateFormat.format(DateTime.now());
 
     var totalPesees = pesees.length;
     var nbrePeseeSend = 0;
-
+    print(" ${totalPesees}");
+    print("\n\n\n\n\n\n ${pesees[0].sourceID}");
+    print("\n\n\n\n\n\n ${pesees[0].sourceRefa46Noa46}");
+    print("\n\n\n\n\n\n ${pesees[0].lotNoa46}");
+    print("\n\n\n\n\n\n ${pesees[0].isPreparateur}");
+    print("\n\n\n\n\n\n ${pesees[0].isVerificateur}");
+    print("\n\n\n\n\n\n ${pesees[0].articleNo}");
+    print("\n\n\n\n\n\n ${pesees[0].quantity}");
     List<Future<ApiResponse<Pesee>>> apiRequests = [];
 
     pesees.forEach((pesee) {
@@ -184,4 +193,7 @@ class TracabiliteRepositoryImpl extends TracabiliteRepository {
 
   @override
   Future<ApiResponse<Pesee>> deletePeseesManuelle(Pesee pesee)  => client.deletePeseesManuelle(pesee);
+
+  @override
+  Future<ApiResponse<Article>> suprimerLesPesees(Article article)  => client.suprimerLesPesees(article);
 }

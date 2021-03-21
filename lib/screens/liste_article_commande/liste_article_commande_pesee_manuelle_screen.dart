@@ -3,12 +3,15 @@ import 'package:fish_scan/models/article.dart';
 import 'package:fish_scan/models/commande.dart';
 import 'package:fish_scan/models/tracabilite.dart';
 import 'package:fish_scan/screens/depotage/depotage_screen.dart';
+import 'package:fish_scan/screens/home/home_controller.dart';
 import 'package:fish_scan/screens/liste_article_commande/liste_article_commande_logic.dart';
 import 'package:fish_scan/constants/navigation_menu.dart';
 import 'package:fish_scan/screens/liste_article_commande/liste_article_pesee_manuelle_item.dart';
 import 'package:fish_scan/screens/liste_commande/liste_commande_logic.dart';
+import 'package:fish_scan/screens/liste_commande/liste_commande_pesee_manuelle_logic.dart';
 import 'package:fish_scan/screens/vente/vente_pesee_manuelle_screen.dart';
 import 'package:fish_scan/screens/vente/vente_screen.dart';
+import 'package:fish_scan/utils/get_storage_service.dart';
 import 'package:fish_scan/widgets/button/button.dart';
 import 'package:fish_scan/widgets/dialogs.dart';
 import 'package:fish_scan/widgets/error_message.dart';
@@ -22,8 +25,11 @@ import 'liste_article_item.dart';
 
 class ListeArticleCommandePeseeManuelleScreen extends StatefulWidget {
   final Commande commande;
+  final String login;
 
-  const ListeArticleCommandePeseeManuelleScreen({Key key, this.commande})
+
+
+  const ListeArticleCommandePeseeManuelleScreen({Key key, this.commande, this.login})
       : super(key: key);
 
   @override
@@ -34,19 +40,26 @@ class ListeArticleCommandePeseeManuelleScreen extends StatefulWidget {
 class _ListeArticleCommandePeseeManuelleScreenState
     extends State<ListeArticleCommandePeseeManuelleScreen> {
   Commande commande;
+  // String login;
 
   final listeArticleController = Get.put(ListeArticleCommandeController());
   final listeCommandeController = Get.put(ListeCommandeController());
+  final listeCommandePeseeManuelleController =Get.put(ListeCommandePeseeManuelleController());
+  //final login = GetStorageService.getLogin() as String ;
+
+  HomeController ctrlGetLogin = Get.put(HomeController());
 
   @override
   void initState() {
     commande = widget.commande;
+      //this.login =  await GetStorageService.getLogin();
     super.initState();
     _getArticles();
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text(commande == null
@@ -89,7 +102,26 @@ class _ListeArticleCommandePeseeManuelleScreenState
                     items: items,
                     data: (Article item) {
                       return ListeArticlePeseeManuelleItem(item: item, click: (){
-                        Get.to(VentePeseeManuelleScreen(article: item,));
+                        print("my login : ${this.ctrlGetLogin.login}");
+                        if( item.preparateur == this.ctrlGetLogin.login || item.verificateur == this.ctrlGetLogin.login ){
+                          print("\n\n\n\n\n ${item.documentNo}\n\n\n\n");
+                          setComLinPeseeActeur(item.documentNo, item.no);
+                          Get.to(VentePeseeManuelleScreen(article: item,));
+                        }else if( item.preparateur == null  || item.verificateur == null ){
+                          print("\n\n\n\n\n ${item.documentNo}\n\n\n\n");
+                          setComLinPeseeActeur(item.documentNo, item.no);
+                          Get.to(VentePeseeManuelleScreen(article: item,));
+                        }else{
+                          showInfoDialog(context, message: "Il existe déjà un péseur et un vérificateur pour cet article !!");
+                        }
+                        /*if ( (item.preparateur != "" && item.preparateur != this.ctrlGetLogin.login)){// ||
+                            //(item.verificateur != "" && item.verificateur != this.ctrlGetLogin.login )  ){
+                          //showInfoDialog(context, message: "Il existe déjà un péseur et un vérificateur pour cet article !!");
+                        }
+                        else {
+
+                        }*/
+                        //Get.to(VentePeseeManuelleScreen(article: item,));
                       });
                     },
                   ),
@@ -177,4 +209,8 @@ class _ListeArticleCommandePeseeManuelleScreenState
 
   Future _getArticles() =>
       listeArticleController.getArticlesPeseeManuelle(commandeNo: commande.no);
+
+  void setComLinPeseeActeur(String documentNo, String no) {
+    listeCommandePeseeManuelleController.setComLinPeseeActeur(documentNo , no);
+  }
 }

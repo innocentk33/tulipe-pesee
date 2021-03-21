@@ -1,6 +1,8 @@
 import 'package:fish_scan/constants/strings.dart';
 import 'package:fish_scan/gen/assets.gen.dart';
+import 'package:fish_scan/models/CommandItem.dart';
 import 'package:fish_scan/models/article.dart';
+import 'package:fish_scan/screens/home/home_controller.dart';
 import 'package:fish_scan/screens/vente/vente_controller.dart';
 import 'package:fish_scan/screens/vente/vente_pesee_manuelle_controller.dart';
 import 'package:fish_scan/widgets/button/button.dart';
@@ -28,6 +30,9 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
   TextEditingController poidsCtrl = TextEditingController();
   double poidsMarchandise = 0;
   int nbrCartons=0;
+  List<CommandItem> listCarton = [];
+
+  int myIndex = 0;
 
 
   @override
@@ -38,6 +43,7 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controller.setArticle(article);
+
       _getPesees();
     });
   }
@@ -97,7 +103,7 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
                       builder: (c) => Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text("Poids: ",
+                          Text("Poids total: ",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black)),
@@ -164,7 +170,7 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black)),
-                          Text("${c.nombreCartonsDemandes}",
+                          Text("${c.budget}",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.green))
@@ -182,7 +188,7 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black)),
-                          Text("${c.nombreCartons}",
+                          Text("${c.montant}",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.red))
@@ -230,6 +236,11 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
                       onTap: () {
                         if (checkForm()) {
                           saveTracabilite();
+                          /*var item = new CommandItem();
+                          item.index = ${index + 1};
+                          item.nbre = nbrCartons;
+                          item.poids = nbrCartons * poidsMarchandise + 1;
+                          listCarton.add(item);*/
                         }
                       },
                       child: Icon(Icons.add_circle_outlined,
@@ -260,7 +271,7 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
                           color: Colors.red,
                         ),
                         Text(
-                          'Vider',
+                          'Vider vente',
                           style: TextStyle(
                               color: Colors.red, fontWeight: FontWeight.bold),
                         ),
@@ -310,6 +321,7 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
                                         GestureDetector(
                                             onTap: () => c
                                                 .deletePeseeToDatabase([pesee]),
+
                                             child: Icon(
                                               Icons.remove,
                                               color: Colors.red,
@@ -329,7 +341,7 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
                         ),
                         VSpacer.normal,
                         Button(
-                          "Enregister",
+                          "Enregistrer comande",
                           onPressed: () => showInfoDialog(
                             context,
                             message:
@@ -394,7 +406,7 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
     return true;
   }
 
-  void saveTracabilite({List<Article> articles} ) async {
+  void  saveTracabilite({List<Article> articles} ) async {
     bool isSaved = true;
 
     if (articles == null) {
@@ -474,9 +486,11 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
         positiveAction: () => _deleteRemotePesees());
   }
 
+
   _deleteRemotePesees() async {
     showLoadingDialog(context, message: "Veuillez patienter ...");
-    controller.deleteRemotePesee();
+    //controller.deleteRemotePesee();
+    controller.suprimerLesPesees(article);
     Get.back();
     await _deleteLocalPesees();
   }
