@@ -156,6 +156,7 @@ class TracabiliteRepositoryImpl extends TracabiliteRepository {
 
     var totalPesees = pesees.length;
     var nbrePeseeSend = 0;
+
     print(" ${totalPesees}");
     print("\n\n\n\n\n\n ${pesees[0].sourceID}");
     print("\n\n\n\n\n\n ${pesees[0].sourceRefa46Noa46}");
@@ -167,6 +168,7 @@ class TracabiliteRepositoryImpl extends TracabiliteRepository {
     List<Future<ApiResponse<Pesee>>> apiRequests = [];
 
     pesees.forEach((pesee) {
+
       pesee.creationDate = currentDate;
       pesee.expectedReceiptDate = currentDate;
       apiRequests.add(client.submitPeseeManuelle(pesee));
