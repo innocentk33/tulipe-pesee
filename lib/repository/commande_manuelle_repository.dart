@@ -9,6 +9,7 @@ abstract class CommandeManuelleRepository {
   Future<ApiResponse<Commande>> getCommande(String statusCommande);
   Future<ApiResponse<Commande>> updateNomPeseur(String noCommande);
   Future<ApiResponse<Commande>> updateNomVerificateur(String noCommande);
+  Future<ApiResponse<Commande>> validerCommande(String noCommande);
   Future<ApiResponse<Commande>> validerPesee(String noCommande);
   Future<ApiResponse<Commande>> setComLinPeseeActeur(String noCommande , String article);
 
@@ -21,7 +22,8 @@ class CommandeManuelleRepositoryImpl extends CommandeManuelleRepository {
   Future<ApiResponse<Commande>> getCommande(String statusCommande) => client.getCommandes(statusCommande);
 
   @override
-  Future<ApiResponse<Commande>> updateNomPeseur(String noCommande) => client.updateNomPeseur(noCommande);
+  Future<ApiResponse<Commande>> updateNomPeseur(String noCommande) => client.updateNomPeseur(noCommande); @override
+  Future<ApiResponse<Commande>> validerCommande(String noCommande) => client.validerCommande(noCommande);
 
   @override
   Future<ApiResponse<Commande>> setComLinPeseeActeur(String noCommande ,String article) => client.setComLinPeseeActeur(noCommande ,article);

@@ -35,6 +35,10 @@ class ListeCommandePeseeManuelleController extends GetxController {
     _response = await commandeManuelleRepository.setComLinPeseeActeur(noCommande,article);
     return _response;
   }
+  Future<ApiResponse<Commande>> validerCommande(String noCommande) async {
+    _response = await commandeManuelleRepository.validerCommande(noCommande);
+    return _response;
+  }
 
   Future<ApiResponse<Commande>> updateNomVerificateur(String noCommande) async {
     _response =

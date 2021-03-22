@@ -150,7 +150,8 @@ class ArticleClient {
       final document = XmlDocument.parse(response.body);
 
       double returnValue =
-          double.parse(document.findAllElements('return_value').first.text);
+          double.parse(document.findAllElements(''
+              'return_value').first.text);
 
       if (returnValue <= 0) {
         if (returnValue == -3) {

@@ -134,7 +134,7 @@ class _ListeArticleCommandePeseeManuelleScreenState
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
+                        /*Container(
 
                           width: MediaQuery.of(context).size.width/1.4,
                           child: Column(
@@ -162,7 +162,7 @@ class _ListeArticleCommandePeseeManuelleScreenState
                               ),
                             ],
                           ),
-                        ),
+                        )*/
 
                         Column(
 
@@ -172,6 +172,7 @@ class _ListeArticleCommandePeseeManuelleScreenState
                               color: Colors.white,
                               onPressed: (){
                                 print("click");
+                                validerCommande(commande.no);
 
                               },
                               child: Text("Valider"),
@@ -212,5 +213,9 @@ class _ListeArticleCommandePeseeManuelleScreenState
 
   void setComLinPeseeActeur(String documentNo, String no) {
     listeCommandePeseeManuelleController.setComLinPeseeActeur(documentNo , no);
+  }
+  void validerCommande(String noCommande) async {
+    var response = await listeCommandePeseeManuelleController.validerCommande(noCommande);
+    showInfoDialog(context,message: "Operation terminée",);
   }
 }
