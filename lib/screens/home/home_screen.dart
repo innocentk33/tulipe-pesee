@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       globalController.menu = NavigationMenu.VENTE_MANUELLE;
                       Get.to(VenteDashboardScreen());
                     }),
-                    MenuButton("Code à barre",
+              /*      MenuButton("Code à barre",
                         prefix: Assets.images.box.image(width: 30, height: 30),
                         onPressed: () {
                       globalController.menu = NavigationMenu.VENTE;
@@ -97,14 +97,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           menu: NavigationMenu.DEPOTAGE_RAPIDE,
                         ),
                       ),
-                    ),
-                    MenuButton("Paramètre",
-                        prefix:
-                            Assets.images.settings.image(width: 30, height: 30),
-                        onPressed: () => Get.to(SettingsScreen())),
+                    ),*/
+
+
                   ],
                 ),
               ),
+              MenuButton("Paramètre",
+                  prefix:
+                  Assets.images.settings.image(width: 30, height: 30),
+                  onPressed: () => Get.to(SettingsScreen())),
               Button("Deconnexion", color: Colors.red, onPressed: () {
                 _showLogoutConfirmation();
               }),

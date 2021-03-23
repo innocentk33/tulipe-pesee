@@ -132,8 +132,10 @@ class _ListeArticleCommandePeseeManuelleScreenState
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 2),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
+
                         /*Container(
 
                           width: MediaQuery.of(context).size.width/1.4,
@@ -169,13 +171,17 @@ class _ListeArticleCommandePeseeManuelleScreenState
                           children: [
 
                             MaterialButton(
+
                               color: Colors.white,
                               onPressed: (){
                                 print("click");
                                 validerCommande(commande.no);
 
                               },
-                              child: Text("Valider"),
+                              child: Text("Valider",style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold
+                              ),),
                             ),
                           ],
                         ),
@@ -214,8 +220,17 @@ class _ListeArticleCommandePeseeManuelleScreenState
   void setComLinPeseeActeur(String documentNo, String no) {
     listeCommandePeseeManuelleController.setComLinPeseeActeur(documentNo , no);
   }
+
+
   void validerCommande(String noCommande) async {
+    showLoadingDialog(context, message: "Veuillez patienter ...");
     var response = await listeCommandePeseeManuelleController.validerCommande(noCommande);
-    showInfoDialog(context,message: "Operation terminée",);
+    print("\n\n\n VALIDERRRRRRRR ${response.message}");
+
+    showInfoDialog(context, message: response.message, positiveAction: () {
+      Get.back();
+      Get.back();
+    });
+
   }
 }

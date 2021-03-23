@@ -121,7 +121,7 @@ class CommandeManuelleClient {
           <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
           <Body>
           <ValiderComPesee xmlns="urn:microsoft-dynamics-schemas/codeunit/COMMANDESA">
-          <order_Noa46>noCommande</order_Noa46>
+          <order_Noa46>$noCommande</order_Noa46>
           </ValiderComPesee>
           </Body>
           </Envelope>
@@ -133,18 +133,24 @@ class CommandeManuelleClient {
         body: body);
 
     if (!response.hasError) {
-      XmlDocument xmlDocument = XmlDocument.parse(response.body);
-      var faultCodeNode =
-      xmlDocument.findAllElements("ValiderComPesee");
-      if (faultCodeNode.isEmpty) {
-        response.hasError = true;
-      }
-    }
-    final document = XmlDocument.parse(response.body);
-    String result = document.findAllElements('return_value').first.text;
+      final document = XmlDocument.parse(response.body);
 
-    response.message = result;
-    return response;
+      double returnValue =
+      double.parse(document.findAllElements('' 'return_value').first.text);
+
+
+        if (returnValue == -1) {
+          return ApiResponse(hasError: true, message: "La pesée n'est pas valide");
+        }
+
+        if (returnValue == 1) {
+          return ApiResponse(
+              hasError: true, message: "Pesée envoyée en validation avec succès");
+        }
+
+
+
+    }
   }
 
   Future<ApiResponse<Commande>> updateNomVerificateur(String noCommande) async {

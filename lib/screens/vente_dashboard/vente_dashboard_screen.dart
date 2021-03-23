@@ -24,6 +24,18 @@ class _VenteDashboardScreeState extends State<VenteDashboardScreen> {
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: Text('Pesée'),
+        actions: [
+          GestureDetector(
+            onTap: ((){
+              globalController.menu = NavigationMenu.VENTE_MANUELLE;
+              Get.to(VenteDashboardScreen());
+            }) ,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Icon(Icons.refresh),
+            ),
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

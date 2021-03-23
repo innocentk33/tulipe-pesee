@@ -40,75 +40,81 @@ class _ListeCommandePeseeManuelleScreenState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Liste de commandes",
+    return WillPopScope(
+      onWillPop: ((){
+        Get.back();
+        Get.back();
+      }),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Liste de commandes",
+          ),
+          actions: [
+            GestureDetector(
+              onTap: () => _getCommandes(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Icon(Icons.refresh),
+              ),
+            )
+          ],
         ),
-        actions: [
-          GestureDetector(
-            onTap: () => _getCommandes(),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Icon(Icons.refresh),
-            ),
-          )
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Obx(() {
-          if (controller.isLoading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return controller.response.when(
-            error: (String message) {
-              return ErrorMessage(
-                message: message,
-                retry: () => _getCommandes(),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Obx(() {
+            if (controller.isLoading) {
+              return Center(
+                child: CircularProgressIndicator(),
               );
-            },
-            data: (List<Commande> items) {
-              return Column(
-                children: [
-                  /*if (widget.menu != NavigationMenu.DEPOTAGE)
-                    Text("Statut : ${controller.getStatusLabel(widget.menu)}"),*/
-                  VSpacer.normal,
-                  Expanded(
-                    child: ListData<Commande>(
-                      onClick: (item) {},
-                      items: items,
-                      data: (Commande commande) {
-                        return ItemCommandePeseeManuelle(
-                          item: commande,
-                          menu: widget.menu,
-                          callback: (ItemCommandePeseeManuelleAction action) {
-                            switch (action) {
-                              case ItemCommandePeseeManuelleAction.PESEUR:
-                                updateNomPeseur(commande);
-                                break;
-                              case ItemCommandePeseeManuelleAction.VERIFICATEUR:
-                                updateVerificateur(commande);
-                                break;
-                              case ItemCommandePeseeManuelleAction.VALIDER:
-                                validerPesee(commande);
-                                break;
-                              case ItemCommandePeseeManuelleAction.OUVRIR:
-                                showListArticle(commande);
-                                break;
-                            }
-                          },
-                        );
-                      },
+            }
+            return controller.response.when(
+              error: (String message) {
+                return ErrorMessage(
+                  message: message,
+                  retry: () => _getCommandes(),
+                );
+              },
+              data: (List<Commande> items) {
+                return Column(
+                  children: [
+                    /*if (widget.menu != NavigationMenu.DEPOTAGE)
+                      Text("Statut : ${controller.getStatusLabel(widget.menu)}"),*/
+                    VSpacer.normal,
+                    Expanded(
+                      child: ListData<Commande>(
+                        onClick: (item) {},
+                        items: items,
+                        data: (Commande commande) {
+                          return ItemCommandePeseeManuelle(
+                            item: commande,
+                            menu: widget.menu,
+                            callback: (ItemCommandePeseeManuelleAction action) {
+                              switch (action) {
+                                case ItemCommandePeseeManuelleAction.PESEUR:
+                                  updateNomPeseur(commande);
+                                  break;
+                                case ItemCommandePeseeManuelleAction.VERIFICATEUR:
+                                  updateVerificateur(commande);
+                                  break;
+                                case ItemCommandePeseeManuelleAction.VALIDER:
+                                  validerPesee(commande);
+                                  break;
+                                case ItemCommandePeseeManuelleAction.OUVRIR:
+                                  showListArticle(commande);
+                                  break;
+                              }
+                            },
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              );
-            },
-          );
-        }),
+                  ],
+                );
+              },
+            );
+          }),
+        ),
       ),
     );
   }
@@ -143,7 +149,7 @@ class _ListeCommandePeseeManuelleScreenState
     showInfoDialog(context,
         message: response.hasError
             ? "Une erreur est survenue"
-            : "Opération réussie", positiveAction: () {
+            : "Opération réussie de test", positiveAction: () {
       if (!response.hasError) {
         showListArticle(commande);
       }
@@ -157,7 +163,8 @@ class _ListeCommandePeseeManuelleScreenState
   void validerPesee(Commande commande) async {
     showLoadingDialog(context, message: "Veuillez patienter ...");
     var response = await controller.validerPesee(commande.no);
-    Get.back();
+    print("\n\n\n VALIDERRRRRRRR $response");
+    //Get.back();
     showInfoDialog(context, message: response.message, positiveAction: () {
       if (response.message.contains("succès")) {}
     });

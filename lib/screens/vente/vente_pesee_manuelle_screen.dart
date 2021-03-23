@@ -341,7 +341,7 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
                         ),
                         VSpacer.normal,
                         Button(
-                          "Enregistrer comande",
+                          "Enregistrer",
                           onPressed: () => showInfoDialog(
                             context,
                             message:

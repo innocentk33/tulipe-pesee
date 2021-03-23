@@ -62,7 +62,7 @@ class _ListeArticlePeseeManuelleItemState
                           ),
                         ),
                         Text(
-                          "${item.controle ? 'CORRECTE' : 'INCORECTE'}",
+                          "${item.controle ? 'CORRECTE' : 'INCORRECTE'}",
 
                           style: TextStyle(fontWeight: FontWeight.bold,
                           color: item.controle ?Colors.green:Colors.red,

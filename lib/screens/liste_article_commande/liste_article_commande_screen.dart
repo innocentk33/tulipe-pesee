@@ -98,7 +98,7 @@ class _ListeArticleCommandeScreenState
                   ),
                   if (widget.menu == NavigationMenu.VENTE_EN_COURS_PREPARATION)
                     Button(
-                      "Valider",
+                      "Valider article",
                       onPressed: () => _updateStatusCommande(),
                     )
                 ],

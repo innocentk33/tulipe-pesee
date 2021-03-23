@@ -268,7 +268,7 @@ class _DepotageScreenState extends State<DepotageScreen> {
                         ),
                         VSpacer.normal,
                         Button(
-                          "Valider",
+                          "Valider depotage",
                           onPressed: () => showInfoDialog(
                             context,
                             message:
