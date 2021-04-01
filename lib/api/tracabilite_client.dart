@@ -113,7 +113,7 @@ class TracabiliteClient {
             <order_Noa46>${pesee.sourceID}</order_Noa46>
             <username>$username</username>
             <noArticle>${pesee.articleNo}</noArticle>
-            <num>${pesee.id}</num>
+            <num>${pesee.idPesee}</num>
             <nombre>${pesee.lotNoa46}</nombre>
             <poids>${pesee.quantity}</poids>
             <total>${double.parse(pesee.quantity) * double.parse(pesee.lotNoa46)}</total>

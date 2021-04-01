@@ -1,17 +1,18 @@
 import 'package:xml/xml.dart';
 
 class Pesee {
-  final String flotNoa46 = 'lotNoa46';
-  final String fquantity = 'quantity';
-  final String farticleNo = 'articleNo';
-  final String flocationCode = 'locationCode';
-  final String fsourceId = 'sourceId';
-  final String fitemNoa46 = 'itemNoa46';
-  final String fsourceRefa46Noa46 = 'sourceRefa46Noa46';
-  final String fcreatedBy = 'createdBy';
-  final String fidPesee = 'idPesee';
-  final String fpreparateur = 'fpreparateur';
-  final String fverificateur = 'fverificateur';
+   String flotNoa46 = 'lotNoa46';
+   String fquantity = 'quantity';
+   String farticleNo = 'articleNo';
+   String flocationCode = 'locationCode';
+   String fsourceId = 'sourceId';
+   String fitemNoa46 = 'itemNoa46';
+   String fsourceRefa46Noa46 = 'sourceRefa46Noa46';
+   String fcreatedBy = 'createdBy';
+   String fidPesee = 'idPesee';
+   String fpreparateur = 'fpreparateur';
+   String fverificateur = 'fverificateur';
+
 
 
 
@@ -81,13 +82,14 @@ class Pesee {
       '$fitemNoa46': this.itemNoa46,
       '$fsourceRefa46Noa46': this.sourceRefa46Noa46,
       '$fcreatedBy': this.createdBy,
+      '$fidPesee': this.idPesee,
 
       '$fverificateur': this.isVerificateur ? 1 : 0,
       '$fpreparateur': this.isPreparateur ? 1 : 0,
     };
-    if (idPesee != null) {
-      map['$fidPesee'] = idPesee;
-    }
+/*   if (idPesee != null) {
+      map['$fidPesee'] = this.idPesee;
+    }*/
     return map;
   }
 
@@ -108,13 +110,14 @@ class Pesee {
 
   @override
   String toString() {
-    return 'Pesee{id: $id, idPesee: $idPesee, lotNoa46: $lotNoa46, quantity: $quantity, articleNo: $articleNo, locationCode: $locationCode, entryNoa46: $entryNoa46, sourceID: $sourceID, sourceType: $sourceType, itemNoa46: $itemNoa46, sourceRefa46Noa46: $sourceRefa46Noa46, itemTracking: $itemTracking, positive: $positive, createdBy: $createdBy, expectedReceiptDate: $expectedReceiptDate, creationDate: $creationDate, reservationStatus: $reservationStatus, sourceSubtype: $sourceSubtype, idTracabilite: $idTracabilite}';
+    return 'Pesee{idPesee:$idPesee,lotNoa46: $lotNoa46, quantity: $quantity, articleNo: $articleNo, locationCode: $locationCode, entryNoa46: $entryNoa46, sourceID: $sourceID, sourceType: $sourceType, itemNoa46: $itemNoa46, sourceRefa46Noa46: $sourceRefa46Noa46, itemTracking: $itemTracking, positive: $positive, createdBy: $createdBy, expectedReceiptDate: $expectedReceiptDate, creationDate: $creationDate, reservationStatus: $reservationStatus, sourceSubtype: $sourceSubtype, idTracabilite: $idTracabilite}';
   }
 
   factory Pesee.fromXml(XmlElement element) {
-    var articleNo = element.findAllElements('Item_No');
+
+    var articleNo = element.findAllElements('No');
     var lotNo = element.findAllElements('Lot_No');
-    var createByNode = element.findAllElements('Created_By');
+    var createByNode = element.findAllElements('Peseur');
     var unitPriceNode = element.findAllElements('Unit_Price');
     double unitPrice =  unitPriceNode.isEmpty ? 0 : double.parse(unitPriceNode.first.text);
 
@@ -131,16 +134,16 @@ class Pesee {
     }
 
     return Pesee(
-      idPesee: "${lotNo}_${articleNo}",
+      idPesee:  element.findAllElements("Num").first.text,
+      //id: int.parse(id),
       lotNoa46: lotNo.isEmpty ? "": lotNo.first.text,
-
       quantity:
       quantityNode.isEmpty ? "0" : "${quantity * -1}",
       articleNo: articleNo.isEmpty ? "" : articleNo.first.text,
       locationCode: element.findAllElements('Location_Code').isEmpty ? "" : element.findAllElements('Location_Code').first.text,
-      sourceID: element.findAllElements('Source_ID').isEmpty ? "" : element.findAllElements('Source_ID').first.text,
+      sourceID: element.findAllElements('Document_No').isEmpty ? "" : element.findAllElements('Document_No').first.text,
       itemNoa46: articleNo.isEmpty ? "" : articleNo.first.text,
-      sourceRefa46Noa46: element.findAllElements('Source_Ref_No').isEmpty ? "" : element.findAllElements('Source_Ref_No').first.text,
+      sourceRefa46Noa46: element.findAllElements('Line_No').isEmpty ? "" : element.findAllElements('Line_No').first.text,
       createdBy: createByNode.isEmpty ? "" : createByNode.first.text,
     );
   }

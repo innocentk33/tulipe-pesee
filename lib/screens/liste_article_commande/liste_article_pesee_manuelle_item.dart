@@ -39,137 +39,143 @@ class _ListeArticlePeseeManuelleItemState
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 3,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return InkWell(
+      onTap: (){
+        print("never");
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-                      children: [
-                        Expanded(
-                          child: Text(
-                            item.description,
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                        children: [
+                          Expanded(
+                            child: Text(
+                              item.description,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                           ),
-                        ),
-                        Text(
-                          "${item.controle ? 'CORRECTE' : 'INCORRECTE'}",
+                          Text(
 
-                          style: TextStyle(fontWeight: FontWeight.bold,
-                          color: item.controle ?Colors.green:Colors.red,
+                            "${item.controle ? 'CORRECTE' : 'INCORRECTE'}",
 
+                            style: TextStyle(fontWeight: FontWeight.bold,
+                            color: item.controle ?Colors.green:Colors.red,
+
+                            ),
+
+                          )
+                        ],
+                      ),
+                      VSpacer.normal,
+
+
+                      Row(
+                        children: [
+                          Text(
+                            "Peseur:",
                           ),
+                          Text("${item.preparateur ?? ""}",style: TextStyle(
+                            fontWeight: FontWeight
+                                .w900,
 
-                        )
-                      ],
-                    ),
-                    VSpacer.normal,
+                          ),)
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Vérificateur: ",
+                          ),
+                          Text("${item.verificateur ?? ""}",style: TextStyle(
+                            fontWeight: FontWeight
+                                .w900,
 
+                          ),)
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Cartons : ",
+                          ),
+                          Text("${item.cartonPeseur}",style: TextStyle(
+                            fontWeight: FontWeight
+                                .w900,
 
-                    Row(
-                      children: [
-                        Text(
-                          "Peseur:",
-                        ),
-                        Text("${item.preparateur ?? ""}",style: TextStyle(
-                          fontWeight: FontWeight
-                              .w900,
+                          ),)
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Poids :",
+                          ),
+                          Text("${item.poids1}",style: TextStyle(
+                            fontWeight: FontWeight
+                                .w900,
 
-                        ),)
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          "Vérificateur: ",
-                        ),
-                        Text("${item.verificateur ?? ""}",style: TextStyle(
-                          fontWeight: FontWeight
-                              .w900,
+                          ),)
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Prix :",
+                          ),
+                          Text("${item.unitPrice} FCFA",style: TextStyle(
+                            fontWeight: FontWeight
+                                .w900,
 
-                        ),)
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          "Cartons : ",
-                        ),
-                        Text("${item.cartonPeseur}",style: TextStyle(
-                          fontWeight: FontWeight
-                              .w900,
+                          ),)
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Montant :",
+                          ),
+                          Text("${item.unitPrice * double.parse(item.poids1)} FCFA",style: TextStyle(
+                            fontWeight: FontWeight
+                                .w900,
 
-                        ),)
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          "Poids :",
-                        ),
-                        Text("${item.poids1}",style: TextStyle(
-                          fontWeight: FontWeight
-                              .w900,
-
-                        ),)
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          "Prix :",
-                        ),
-                        Text("${item.unitPrice} FCFA",style: TextStyle(
-                          fontWeight: FontWeight
-                              .w900,
-
-                        ),)
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          "Montant :",
-                        ),
-                        Text("${item.unitPrice * double.parse(item.poids1)} FCFA",style: TextStyle(
-                          fontWeight: FontWeight
-                              .w900,
-
-                        ),)
-                      ],
-                    ),
-                    VSpacer.normal,
-                  ],
+                          ),)
+                        ],
+                      ),
+                      VSpacer.normal,
+                    ],
+                  ),
                 ),
-              ),
-              Expanded(
-                child: Button(
-                  "Saisir",
-                  onPressed: () {
-                    widget.click();
+                Expanded(
+                  child: Button(
+                    "Saisir",
+                    onPressed: () {
+                      widget.click();
 
-                  },
-                ),
-              )
-            ],
+                    },
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-        Divider(
-          height: 1,
-          color: Colors.black,
-        ),
-        VSpacer.normal,
+          Divider(
+            height: 1,
+            color: Colors.black,
+          ),
+          VSpacer.normal,
 
-      ],
+        ],
+      ),
     );
   }
 

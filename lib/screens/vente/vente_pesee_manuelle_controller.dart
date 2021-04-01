@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'dart:math' show Random;
 
 class VentePeseeManuelleController extends GetxController {
   var _barCode = "".obs;
@@ -21,6 +22,7 @@ class VentePeseeManuelleController extends GetxController {
   var _clearFields = false.obs;
   var _isLoadingSubmit = false.obs;
   RxBool _isPoidsUnique = false.obs;
+  Random rng = new Random();
 
   TracabiliteRepository tracabiliteRepository = TracabiliteRepositoryImpl();
   ArticleRepository articleRepository = ArticleRepositoryImpl();
@@ -77,7 +79,7 @@ class VentePeseeManuelleController extends GetxController {
     var userLogin = await GetStorageService.getLogin();
 
     Pesee pesee = Pesee(
-      idPesee: "${lot}_${quantity}_${_article.no}",
+      idPesee: int.parse("${rng.nextInt(9999)}${rng.nextInt(9999)}").toString(),
       lotNoa46: lot,
       quantity: quantity,
       articleNo: _article.no,
@@ -116,6 +118,7 @@ class VentePeseeManuelleController extends GetxController {
   deletePeseeToDatabase(List<Pesee> pesees) async {
     _clearFields.value = false;
     for (int i = 0; i < pesees.length; i++) {
+      print("DELETE \n ${pesees[i]}");
       await databaseProvider.deletePesee(pesees[i].idPesee);
     }
     resetFields();

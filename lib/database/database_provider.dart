@@ -16,7 +16,8 @@ class DatabaseProvider {
         version: 2, onCreate: (db, version) async {
       await db.execute('''
       CREATE TABLE IF NOT EXISTS $table_tracabilite (
-        idTracabilite TEXT NOT NULL PRIMARY KEY,
+
+        idTracabilite TEXT PRIMARY KEY,
         sourceId TEXT,
         itemNoa46 TEXT,
         sourceRefa46Noa46 TEXT,
@@ -31,7 +32,8 @@ class DatabaseProvider {
 
       await db.execute('''
       CREATE TABLE IF NOT EXISTS $table_pesee (
-        idPesee TEXT NOT NULL PRIMARY KEY,
+               
+        idPesee TEXT PRIMARY KEY,
         lotNoa46 TEXT,
         quantity TEXT,
         nombreCartons TEXT,
@@ -64,7 +66,7 @@ class DatabaseProvider {
     try {
       pesee.id = await db.insert(table_pesee, pesee.toMap());
     } on DatabaseException catch (e) {
-      print("exception => $e");
+      print("\n\n\n\n\n\n\n\n\n\nexception => $e");
       pesee.id = -1;
     }
     return pesee;
@@ -123,6 +125,11 @@ class DatabaseProvider {
   Future<int> deletePesee(String id) async {
     await open();
     return db.delete(table_pesee, where: 'idPesee = ?', whereArgs: [id]);
+  }
+  Future<int> deleteOnePeseeById(int id) async {
+    await open();
+    return db.delete(table_pesee, where: 'id = ?', whereArgs: [id]);
+
   }
 
 

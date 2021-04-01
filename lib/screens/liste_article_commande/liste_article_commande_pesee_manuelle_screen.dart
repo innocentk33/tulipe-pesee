@@ -102,8 +102,8 @@ class _ListeArticleCommandePeseeManuelleScreenState
                     items: items,
                     data: (Article item) {
                       return ListeArticlePeseeManuelleItem(item: item, click: (){
-                        print("my login : ${this.ctrlGetLogin.login}");
-                        if( item.preparateur == this.ctrlGetLogin.login || item.verificateur == this.ctrlGetLogin.login ){
+                        print("my login : ${this.ctrlGetLogin.login.toUpperCase()}");
+                        if( item.preparateur == this.ctrlGetLogin.login.toUpperCase() || item.verificateur == this.ctrlGetLogin.login.toUpperCase() ){
                           print("\n\n\n\n\n ${item.documentNo}\n\n\n\n");
                           setComLinPeseeActeur(item.documentNo, item.no);
                           Get.to(VentePeseeManuelleScreen(article: item,));

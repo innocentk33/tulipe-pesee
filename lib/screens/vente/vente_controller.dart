@@ -79,8 +79,9 @@ class VenteController extends GetxController {
     var userLogin = await GetStorageService.getLogin();
 
     Pesee pesee = Pesee(
-      idPesee: "${lot}_${_article.no}",
+      //idPesee: "${lot}_${_article.no}",
       lotNoa46: lot,
+
       quantity: quantity,
       articleNo: _article.no,
       locationCode: _article.locationCode,
@@ -118,6 +119,14 @@ class VenteController extends GetxController {
     for (int i = 0; i < pesees.length; i++) {
       await databaseProvider.deletePesee(pesees[i].idPesee);
     }
+    resetFields();
+    getPeseeFromDatabase();
+  }
+  deletePeseeToDatabaseById(Pesee pesees) async {
+    _clearFields.value = false;
+
+      await databaseProvider.deleteOnePeseeById(pesees.id);
+
     resetFields();
     getPeseeFromDatabase();
   }

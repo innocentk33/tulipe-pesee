@@ -37,7 +37,7 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
 
   @override
   void initState() {
-
+    lotCtrl.text = "1";
 
     article = widget.article;
     super.initState();
@@ -47,11 +47,7 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
       _getPesees();
     });
   }
-  @override
-  void setState(fn) {
-    // TODO: implement setState
-    super.setState(fn);
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +103,7 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black)),
-                          Text("${c.poidsTotal} Kg",
+                          Text("${c.poidsTotal.toStringAsFixed(3)} Kg",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.red))
@@ -206,7 +202,7 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
                     child: Expanded(
                       child: Obx(() {
                         if (controller.clearFields) {
-                          lotCtrl.text = "";
+                          lotCtrl.text = "1";
                         }
 
                         return InputText(
