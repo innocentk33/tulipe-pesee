@@ -108,4 +108,40 @@ class CommandeClient {
     return response;
   }
 
+
+
+  Future<ApiResponse<Commande>> getMontantTotalCommandePesee(String noCommande) async {
+
+    var body = '''
+      <Envelope xmlns=http://schemas.xmlsoap.org/soap/envelope/>
+      
+          <Body>
+      
+              <GetMontantTotalComPesee xmlns="urn:microsoft-dynamics-schemas/codeunit/COMMANDESA">
+      
+                  <order_Noa46>$noCommande</order_Noa46>
+      
+              </GetMontantTotalComPesee>
+      
+          </Body>
+      
+      </Envelope>
+    ''';
+
+    var response = await soapClient.post(
+        url: "codeunit/COMMANDESA",
+        action: 'urn:microsoft-dynamics-schemas/codeunit/COMMANDESA',
+        body: body);
+
+    if (!response.hasError) {
+      final document = XmlDocument.parse(response.body);
+
+      String result = document.findAllElements('return_value').first.text;
+
+      response.body = result;
+    }
+
+    return response;
+  }
+
 }
