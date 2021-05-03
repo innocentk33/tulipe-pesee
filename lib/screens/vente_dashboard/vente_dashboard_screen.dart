@@ -1,14 +1,15 @@
-import 'package:fish_scan/constants/status_commande_constants.dart';
+
 import 'package:fish_scan/screens/global_controller.dart';
+import 'package:fish_scan/screens/home/home_screen.dart';
 import 'package:fish_scan/screens/liste_commande/liste_commande_pesee_manuelle_screen.dart';
 import 'package:fish_scan/screens/liste_commande/liste_commande_screen.dart';
 import 'package:fish_scan/screens/vente_dashboard/vente_dashboard_button.dart';
-import 'package:fish_scan/widgets/button/button.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constants/navigation_menu.dart';
-import '../../constants/navigation_menu.dart';
+
 
 class VenteDashboardScreen extends StatefulWidget {
   @override
@@ -24,17 +25,27 @@ class _VenteDashboardScreeState extends State<VenteDashboardScreen> {
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: Text('Pesée'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: ()=>Get.to(HomeScreen()),
+        ),
+
         actions: [
+
+
           GestureDetector(
             onTap: ((){
-              globalController.menu = NavigationMenu.VENTE_MANUELLE;
-              Get.to(VenteDashboardScreen());
+
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>VenteDashboardScreen()));
             }) ,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Icon(Icons.refresh),
             ),
-          )
+          ),
+
+
         ],
       ),
       body: Padding(
@@ -84,5 +95,9 @@ class _VenteDashboardScreeState extends State<VenteDashboardScreen> {
         ? ListeCommandeScreen(menu: NavigationMenu.VENTE_EN_COURS_PREPARATION)
         : ListeCommandePeseeManuelleScreen(
             menu: NavigationMenu.VENTE_EN_COURS_PREPARATION));
+  }
+
+  refreshDashboard() {
+   return Get.off(VenteDashboardScreen());
   }
 }

@@ -43,7 +43,7 @@ class _ListeCommandePeseeManuelleScreenState
     return WillPopScope(
       onWillPop: ((){
         Get.back();
-        Get.back();
+        return;
       }),
       child: Scaffold(
         appBar: AppBar(
