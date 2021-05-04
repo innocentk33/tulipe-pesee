@@ -63,4 +63,12 @@ class ListeCommandeController extends GetxController {
   bool get isLoading => _isLoading.value;
 
   ApiResponse<Commande> get response => _response;
+
+  getMontantTotalPesee(String commandeNo) async {
+    _isLoading.value = true;
+    _response = await commandeRepository.getMontantTotalCommandePesee(commandeNo);
+    _isLoading.value = false;
+  return response;
+  }
+
 }

@@ -33,4 +33,5 @@ class ListeArticleCommandeController extends GetxController {
     _response = await repository.getArticlesPeseeManuelle(commandeNo);
     _isLoading.value = false;
   }
+
 }

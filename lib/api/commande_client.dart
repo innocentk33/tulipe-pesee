@@ -3,6 +3,7 @@ import 'package:fish_scan/models/api_response.dart';
 import 'package:fish_scan/models/commande.dart';
 import 'package:xml/xml.dart';
 
+
 class CommandeClient {
   SoapClient<Commande> soapClient = SoapClient();
 
@@ -110,22 +111,16 @@ class CommandeClient {
 
 
 
-  Future<ApiResponse<Commande>> getMontantTotalCommandePesee(String noCommande) async {
+  Future<ApiResponse> getMontantTotalCommandePesee(String noCommande) async {
 
     var body = '''
-      <Envelope xmlns=http://schemas.xmlsoap.org/soap/envelope/>
-      
-          <Body>
-      
-              <GetMontantTotalComPesee xmlns="urn:microsoft-dynamics-schemas/codeunit/COMMANDESA">
-      
-                  <order_Noa46>$noCommande</order_Noa46>
-      
-              </GetMontantTotalComPesee>
-      
-          </Body>
-      
-      </Envelope>
+      <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+    <Body>
+        <GetMontantTotalComPesee xmlns="urn:microsoft-dynamics-schemas/codeunit/COMMANDESA">
+            <order_Noa46>$noCommande</order_Noa46>
+        </GetMontantTotalComPesee>
+    </Body>
+</Envelope>
     ''';
 
     var response = await soapClient.post(

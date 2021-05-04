@@ -20,6 +20,8 @@ import 'package:fish_scan/widgets/spacers.dart';
 import 'package:fish_scan/widgets/titled_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:developer';
+import 'dart:convert';
 
 import 'liste_article_item.dart';
 
@@ -40,6 +42,7 @@ class ListeArticleCommandePeseeManuelleScreen extends StatefulWidget {
 class _ListeArticleCommandePeseeManuelleScreenState
     extends State<ListeArticleCommandePeseeManuelleScreen> {
   Commande commande;
+  String  montantTotal="0";
   // String login;
 
   final listeArticleController = Get.put(ListeArticleCommandeController());
@@ -55,6 +58,14 @@ class _ListeArticleCommandePeseeManuelleScreenState
       //this.login =  await GetStorageService.getLogin();
     super.initState();
     _getArticles();
+   _getMontantTotalPesee(commande.no);
+
+  }
+  @override
+  void setState(fn) {
+
+    // TODO: implement setState
+    super.setState(fn);
   }
 
   @override
@@ -130,41 +141,41 @@ class _ListeArticleCommandePeseeManuelleScreenState
                   height: MediaQuery.of(context).size.height/9,
                   color: Colors.green,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 2),
+                    padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 8),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
 
-                        /*Container(
+                        Container(
 
-                          width: MediaQuery.of(context).size.width/1.4,
+
                           child: Column(
 
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Validateur :",
+                            /*  Text("Validateur :",
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w900,
 
-                                ),),
+                                ),),*/
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
 
-                                  Text("15,26KG:",
+                                  Text("Montant :",
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w900,
 
                                     ),),
-                                  Text("000XXX"),
+                                  Text("$montantTotal",style: TextStyle(fontSize: 20),),
                                 ],
                               ),
                             ],
                           ),
-                        )*/
+                        ),
 
                         Column(
 
@@ -175,7 +186,12 @@ class _ListeArticleCommandePeseeManuelleScreenState
                               color: Colors.white,
                               onPressed: (){
                                 print("click");
-                                validerCommande(commande.no);
+                                //validerCommande(commande.no);
+                                _getMontantTotalPesee(commande.no);
+                                print("\n\n montant total : $montantTotal");
+
+
+
 
                               },
                               child: Text("Valider",style: TextStyle(
@@ -232,5 +248,11 @@ class _ListeArticleCommandePeseeManuelleScreenState
       Get.back();
     });
 
+  }
+  _getMontantTotalPesee(String noCommande) async{
+    var response = await listeCommandeController.getMontantTotalPesee(noCommande);
+    print("\n\n\n MONTANT RECHERCHER ${response.body}");
+    montantTotal = response.body;
+    return response.body;
   }
 }

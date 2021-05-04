@@ -180,7 +180,7 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
                       builder: (c) => Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text("Montant : ",
+                          Text("Montantzer : ",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black)),

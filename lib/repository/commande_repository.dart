@@ -8,6 +8,7 @@ abstract class CommandeRepository {
   Future<ApiResponse<Commande>> getCommandesAchat(String statusCommande);
   Future<ApiResponse<Commande>> getCommandesVente(String statusCommande);
   Future<ApiResponse<Commande>> getNombreCommandeParTraitement(int codeTraitement);
+  Future<ApiResponse> getMontantTotalCommandePesee(String noCommande);
 }
 
 class CommandeRepositoryImpl extends CommandeRepository {
@@ -21,4 +22,6 @@ class CommandeRepositoryImpl extends CommandeRepository {
 
   @override
   Future<ApiResponse<Commande>> getNombreCommandeParTraitement(int codeTraitement) => client.getNombreCommandeParTraitement(codeTraitement);
+  @override
+  Future<ApiResponse> getMontantTotalCommandePesee(String noCommande) => client.getMontantTotalCommandePesee(noCommande);
 }
