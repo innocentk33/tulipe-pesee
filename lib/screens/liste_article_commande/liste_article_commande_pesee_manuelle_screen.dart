@@ -63,7 +63,7 @@ class _ListeArticleCommandePeseeManuelleScreenState
   }
   @override
   void setState(fn) {
-
+    _getMontantTotalPesee(commande.no);
     // TODO: implement setState
     super.setState(fn);
   }
@@ -80,7 +80,10 @@ class _ListeArticleCommandePeseeManuelleScreenState
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: GestureDetector(
-              onTap: () => _getArticles(),
+              onTap: () {
+                _getArticles();
+                _getMontantTotalPesee(commande.no);
+              },
               child: Icon(Icons.refresh),
             ),
           )
