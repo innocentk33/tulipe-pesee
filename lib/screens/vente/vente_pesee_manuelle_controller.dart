@@ -63,8 +63,9 @@ class VentePeseeManuelleController extends GetxController {
   }
 
   Future<ApiResponse> sendPesee() async {
-    print("ICI 3");
+    print("ICI 3 sendPesee");
     _response = await tracabiliteRepository.submitPeseeManuelle(_pesees);
+    print("\n\n\n\n la PESEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE ${_pesees}\n\n\n\n\n");
     deletePeseeToDatabase(_response.items);
     return _response;
   }

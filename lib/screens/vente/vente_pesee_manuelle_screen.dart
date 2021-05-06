@@ -180,7 +180,7 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
                       builder: (c) => Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text("Montantzer : ",
+                          Text("Montant : ",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black)),
@@ -337,7 +337,7 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
                         ),
                         VSpacer.normal,
                         Button(
-                          "Enregistrer",
+                          "Enregistrerzer",
                           onPressed: () => showInfoDialog(
                             context,
                             message:

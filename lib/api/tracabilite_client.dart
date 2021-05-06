@@ -109,7 +109,7 @@ class TracabiliteClient {
     var body = '''
     <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
     <Body>
-        <EnregisterPesee xmlns="urn:microsoft-dynamics-schemas/codeunit/COMMANDESA">
+        <EnregisterPeseeInno xmlns="urn:microsoft-dynamics-schemas/codeunit/COMMANDESA">
             <order_Noa46>${pesee.sourceID}</order_Noa46>
             <username>$username</username>
             <noArticle>${pesee.articleNo}</noArticle>
@@ -119,7 +119,11 @@ class TracabiliteClient {
             <total>${double.parse(pesee.quantity) * double.parse(pesee.lotNoa46)}</total>
             <peseur>${pesee.isPreparateur}</peseur>
             <vericateur>${pesee.isVerificateur}</vericateur>
-        </EnregisterPesee>
+            <lineNo>${pesee.sourceRefa46Noa46}</lineNo>
+            
+            
+            
+        </EnregisterPeseeInno>
     </Body>
 </Envelope>
     ''';
@@ -131,7 +135,7 @@ class TracabiliteClient {
 
     if (!response.hasError) {
       XmlDocument xmlDocument = XmlDocument.parse(response.body);
-      var faultCodeNode = xmlDocument.findAllElements("EnregisterPesee_Result");
+      var faultCodeNode = xmlDocument.findAllElements("EnregisterPeseeInno_Result");
       if (faultCodeNode.isEmpty) {
         response.hasError = true;
       } else {

@@ -40,6 +40,7 @@ class VenteController extends GetxController {
   Future<ApiResponse> submitPesee() async {
     var responseDelete = await tracabiliteRepository.deleteTracabilite(
         articleNo: _article.no,
+
         commandeNo: _article.documentNo,
         sourceType: "37");
     if (responseDelete.hasError) {

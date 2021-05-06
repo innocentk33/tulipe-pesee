@@ -1,11 +1,7 @@
-import 'package:fish_scan/constants/navigation_menu.dart';
 import 'package:fish_scan/models/article.dart';
 import 'package:fish_scan/screens/liste_article_commande/liste_article_item_controller.dart';
 import 'package:fish_scan/widgets/spacers.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:path/path.dart';
-
 import '../../widgets/button/button.dart';
 
 class ListeArticlePeseeManuelleItem extends StatefulWidget {
@@ -95,7 +91,7 @@ class _ListeArticlePeseeManuelleItemState
                       Row(
                         children: [
                           Text(
-                            "Vérificateur: ",
+                            "Vérificateurzer: ",
                           ),
                           Text("${item.verificateur ?? ""}",style: TextStyle(
                             fontWeight: FontWeight
@@ -158,7 +154,7 @@ class _ListeArticlePeseeManuelleItemState
                 ),
                 Expanded(
                   child: Button(
-                    "Saisir",
+                    "Saisirzer",
                     onPressed: () {
                       widget.click();
 
