@@ -112,6 +112,7 @@ class VentePeseeManuelleController extends GetxController {
   }
 
   getPeseeFromDatabase() async {
+    print("\n\n GET PESE :::: getPeseeFromDatabase");
     _pesees = await databaseProvider.getPeseeByArticle(_article.no);
     update();
   }

@@ -142,7 +142,7 @@ class Pesee {
       locationCode: element.findAllElements('Location_Code').isEmpty ? "" : element.findAllElements('Location_Code').first.text,
       sourceID: element.findAllElements('Document_No').isEmpty ? "" : element.findAllElements('Document_No').first.text,
       itemNoa46: articleNo.isEmpty ? "" : articleNo.first.text,
-      sourceRefa46Noa46: element.findAllElements('LineNo').isEmpty ? "" : element.findAllElements('LineNo').first.text,
+      sourceRefa46Noa46: element.findAllElements('Line_No').isEmpty ? "" : element.findAllElements('Line_No').first.text,
       createdBy: createByNode.isEmpty ? "" : createByNode.first.text,
     );
   }

@@ -1,3 +1,4 @@
+import 'package:fish_scan/constants/strings.dart';
 import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
@@ -14,7 +15,7 @@ class Button extends StatelessWidget {
       this.color,
       this.textColor,
       this.prefix,
-      this.suffix})
+      this.suffix, Text child})
       : super(key: key);
 
   @override
@@ -34,7 +35,7 @@ class Button extends StatelessWidget {
           if(suffix != null) suffix
         ],
       ),
-      color: color ?? Colors.blue,
+      color: color ?? kRose,
     );
   }
 }

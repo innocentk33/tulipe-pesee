@@ -1,5 +1,6 @@
 import 'package:fish_scan/api/soap_client.dart';
 import 'package:fish_scan/models/api_response.dart';
+import 'package:fish_scan/models/article.dart';
 import 'package:fish_scan/models/commande.dart';
 import 'package:xml/xml.dart';
 
@@ -75,7 +76,48 @@ class CommandeManuelleClient {
     }
     return response;
   }
-  Future<ApiResponse<Commande>> setComLinPeseeActeur(String noCommande ,String article) async {
+  Future<ApiResponse<Commande>> setComLinPeseeActeur(String noCommande ,String article,String noLine) async {
+    String nom = await GetStorageService.getLogin();
+
+    var body = '''
+          <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+          
+           <Body>
+          
+           <setComLinPeseeActeurInno xmlns="urn:microsoft-dynamics-schemas/codeunit/COMMANDESA">
+          
+           <order_Noa46>$noCommande</order_Noa46>
+          
+           <article>$article</article>
+          
+           <user_app_name>$nom</user_app_name>
+           <lineNo>$noLine</lineNo>
+          
+           
+          
+           </setComLinPeseeActeurInno>
+          
+           </Body>
+          
+           </Envelope>
+    ''';
+
+    var response = await soapClient.post(
+        url: "codeunit/COMMANDESA",
+        action: 'urn:microsoft-dynamics-schemas/codeunit/COMMANDESA',
+        body: body);
+
+    if (!response.hasError) {
+      XmlDocument xmlDocument = XmlDocument.parse(response.body);
+      var faultCodeNode =
+      xmlDocument.findAllElements("setPeseurComPeseeInno_Result");
+      if (faultCodeNode.isEmpty) {
+        response.hasError = true;
+      }
+    }
+    return response;
+  }
+  Future<ApiResponse<Commande>> setComLinPeseeActeurSave(String noCommande ,Article article) async {
     String nom = await GetStorageService.getLogin();
 
     var body = '''
@@ -90,6 +132,7 @@ class CommandeManuelleClient {
            <article>$article</article>
           
            <user_app_name>$nom</user_app_name>
+           
           
            </setComLinPeseeActeur>
           

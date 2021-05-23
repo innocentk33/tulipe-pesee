@@ -15,12 +15,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Tulipe',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
 
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primaryColor: Color(0XFF2e7940),visualDensity: VisualDensity.adaptivePlatformDensity,),
+      //theme: new ThemeData(primaryColor: Color.fromRGBO(58, 66, 86, 1.0)),
       home: SplashScreen(),
     );
   }

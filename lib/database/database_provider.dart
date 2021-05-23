@@ -74,6 +74,7 @@ class DatabaseProvider {
 
   Future<List<Tracabilite>> getTracabiliteByArticle(String articleNo) async {
     await open();
+    print("\n\n INSERTION DE LA TRACABILITE");
     List<Map> maps = await db.query(table_tracabilite,
         where: 'itemNoa46 = ?', whereArgs: [articleNo]);
     if (maps.length > 0) {
@@ -88,13 +89,15 @@ class DatabaseProvider {
 
   Future<List<Pesee>> getPeseeByArticle(String articleNo) async {
     await open();
+    print("\n\n getPeseeByArticle  articleNo =${articleNo}");
     List<Map> maps = await db
-        .query(table_pesee, where: 'articleNo = ?', whereArgs: [articleNo]);
+        .query(table_pesee, where: 'articleNo =?',  whereArgs: [articleNo]);
     if (maps.length > 0) {
       List<Pesee> datas = List();
       maps.forEach((map) {
         datas.add(Pesee.fromMap(map));
       });
+      print("RESULTAT DE LA REQUETTE : ${datas}");
       return datas;
     }
     return List();

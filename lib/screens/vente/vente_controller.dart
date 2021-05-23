@@ -6,7 +6,6 @@ import 'package:fish_scan/models/article.dart';
 import 'package:fish_scan/models/commande.dart';
 import 'package:fish_scan/models/pesee.dart';
 import 'package:fish_scan/repository/article_repository.dart';
-import 'package:fish_scan/repository/commande_repository.dart';
 import 'package:fish_scan/repository/tracabilite_repository.dart';
 import 'package:fish_scan/utils/get_storage_service.dart';
 import 'package:flutter/services.dart';
@@ -82,7 +81,6 @@ class VenteController extends GetxController {
     Pesee pesee = Pesee(
       //idPesee: "${lot}_${_article.no}",
       lotNoa46: lot,
-
       quantity: quantity,
       articleNo: _article.no,
       locationCode: _article.locationCode,

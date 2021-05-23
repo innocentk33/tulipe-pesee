@@ -1,3 +1,6 @@
+
+
+import 'package:fish_scan/constants/strings.dart';
 import 'package:fish_scan/data/dummy.dart';
 import 'package:fish_scan/models/article.dart';
 import 'package:fish_scan/models/commande.dart';
@@ -118,12 +121,12 @@ class _ListeArticleCommandePeseeManuelleScreenState
                       return ListeArticlePeseeManuelleItem(item: item, click: (){
                         print("my login : ${this.ctrlGetLogin.login.toUpperCase()}");
                         if( item.preparateur == this.ctrlGetLogin.login.toUpperCase() || item.verificateur == this.ctrlGetLogin.login.toUpperCase() ){
-                          print("\n\n\n\n\n ${item.documentNo}\n\n\n\n");
-                          setComLinPeseeActeur(item.documentNo, item.no);
+                          print("\n\n\n\n\n ${item.lineNo}\n\n\n\n");
+                          setComLinPeseeActeur(item.documentNo, item.no,item.lineNo);
                           Get.to(VentePeseeManuelleScreen(article: item,));
                         }else if( item.preparateur == null  || item.verificateur == null ){
-                          print("\n\n\n\n\n ${item.documentNo}\n\n\n\n");
-                          setComLinPeseeActeur(item.documentNo, item.no);
+                          print("\n\n\n\n\n ${item.lineNo}\n\n\n\n");
+                          setComLinPeseeActeur(item.documentNo, item.no,item.lineNo);
                           Get.to(VentePeseeManuelleScreen(article: item,));
                         }else{
                           showInfoDialog(context, message: "Il existe déjà un péseur et un vérificateur pour cet article !!");
@@ -140,75 +143,35 @@ class _ListeArticleCommandePeseeManuelleScreenState
                     },
                   ),
                 ),
+
                 Container(
-                  height: MediaQuery.of(context).size.height/9,
-                  color: Colors.green,
+                  height: MediaQuery.of(context).size.height*0.1,
+
+                  decoration: BoxDecoration(
+                    color: kVert,
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15))
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Text("$montantTotal",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.white),),
+                        Text("Montant",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
 
-                        Container(
-
-
-                          child: Column(
-
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                            /*  Text("Validateur :",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900,
-
-                                ),),*/
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-
-                                  Text("Montant :",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w900,
-
-                                    ),),
-                                  Text("$montantTotal",style: TextStyle(fontSize: 20),),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        Column(
-
-                          children: [
-
-                            MaterialButton(
-
-                              color: Colors.white,
-                              onPressed: (){
-                                print("click");
-                                //validerCommande(commande.no);
-                                _getMontantTotalPesee(commande.no);
-                                print("\n\n montant total : $montantTotal");
-
-
-
-
-                              },
-                              child: Text("Valider",style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold
-                              ),),
-                            ),
-                          ],
-                        ),
-
+                          ),),
                       ],
                     ),
                   ),
                 ),
+
+
+
                 /*if (widget.menu == NavigationMenu.VENTE_EN_COURS_PREPARATION)
                   Button(
                     "Valider",
@@ -219,6 +182,32 @@ class _ListeArticleCommandePeseeManuelleScreenState
           },
         );
       }),
+     floatingActionButton: FloatingActionButton.extended(
+       elevation: 2,
+       onPressed: (){
+         print("click");
+         validerCommande(commande.no);
+         //_getMontantTotalPesee(commande.no);
+         print("\n\n montant total : $montantTotal");
+       },
+       label: Text("Valider",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+       icon: Icon(Icons.check),
+       backgroundColor: kRose,
+     ),
+
+     /* bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+
+        elevation: 0,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color(0XFFca1961),
+            borderRadius: BorderRadius.circular(8)
+          ),
+          margin: EdgeInsets.all(8),
+          height: MediaQuery.of(context).size.height*.06,
+        ),
+      ),*/
     );
   }
 
@@ -236,8 +225,8 @@ class _ListeArticleCommandePeseeManuelleScreenState
   Future _getArticles() =>
       listeArticleController.getArticlesPeseeManuelle(commandeNo: commande.no);
 
-  void setComLinPeseeActeur(String documentNo, String no) {
-    listeCommandePeseeManuelleController.setComLinPeseeActeur(documentNo , no);
+  void setComLinPeseeActeur(String documentNo, String no,String noLine) {
+    listeCommandePeseeManuelleController.setComLinPeseeActeur(documentNo , no,noLine);
   }
 
 

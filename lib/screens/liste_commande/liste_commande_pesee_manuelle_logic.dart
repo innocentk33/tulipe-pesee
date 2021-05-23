@@ -31,8 +31,8 @@ class ListeCommandePeseeManuelleController extends GetxController {
     return _response;
   }
 
-  Future<ApiResponse<Commande>> setComLinPeseeActeur(String noCommande ,String article) async {
-    _response = await commandeManuelleRepository.setComLinPeseeActeur(noCommande,article);
+  Future<ApiResponse<Commande>> setComLinPeseeActeur(String noCommande ,String article,String noLine) async {
+    _response = await commandeManuelleRepository.setComLinPeseeActeur(noCommande,article,noLine);
     return _response;
   }
   Future<ApiResponse<Commande>> validerCommande(String noCommande) async {

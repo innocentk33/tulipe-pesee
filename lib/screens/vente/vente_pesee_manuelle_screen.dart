@@ -240,7 +240,7 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
                         }
                       },
                       child: Icon(Icons.add_circle_outlined,
-                          color: Colors.blue, size: 35))
+                          color: kRose, size: 35))
                 ],
               ),
               VSpacer.normal,
@@ -337,7 +337,7 @@ class _VentePeseeManuelleScreenState extends State<VentePeseeManuelleScreen> {
                         ),
                         VSpacer.normal,
                         Button(
-                          "Enregistrerzer",
+                          "Enregistrer",
                           onPressed: () => showInfoDialog(
                             context,
                             message:

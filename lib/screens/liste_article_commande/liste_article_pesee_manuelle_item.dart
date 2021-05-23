@@ -91,7 +91,7 @@ class _ListeArticlePeseeManuelleItemState
                       Row(
                         children: [
                           Text(
-                            "Vérificateurzer: ",
+                            "Vérificateur: ",
                           ),
                           Text("${item.verificateur ?? ""}",style: TextStyle(
                             fontWeight: FontWeight
@@ -154,7 +154,7 @@ class _ListeArticlePeseeManuelleItemState
                 ),
                 Expanded(
                   child: Button(
-                    "Saisirzer",
+                    "Saisir",
                     onPressed: () {
                       widget.click();
 
