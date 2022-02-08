@@ -145,7 +145,14 @@ class _ListeArticlePeseeManuelleItemState
                             fontWeight: FontWeight
                                 .w900,
 
-                          ),)
+                          ),),
+
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text("${item.modifier==true? 'Ligne a modifier':''}",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+
                         ],
                       ),
                       VSpacer.normal,

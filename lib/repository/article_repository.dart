@@ -34,6 +34,9 @@ class ArticleRepositoryImpl extends ArticleRepository {
   @override
   Future<ApiResponse<Article>> getArticlesVente(String commandeNo) =>
       client.getArticlesVente(commandeNo);
+  @override
+  Future<ApiResponse<Article>> getArticlesVenteModifie(String commandeNo) =>
+      client.getArticlesVenteModifie(commandeNo);
 
   @override
   Future<ApiResponse<Article>> getArticlesVenteByLot(

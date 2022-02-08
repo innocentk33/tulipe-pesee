@@ -38,7 +38,8 @@ class _VenteDashboardScreeState extends State<VenteDashboardScreen> {
             onTap: ((){
 
               Navigator.push(context,MaterialPageRoute(builder: (context)=>VenteDashboardScreen()));
-            }) ,
+            }
+            ) ,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Icon(Icons.refresh),
@@ -59,7 +60,7 @@ class _VenteDashboardScreeState extends State<VenteDashboardScreen> {
               codeTraitement: 1,
             ),
             VenteDashboardButton(
-              text: "En cours  de préparation",
+              text: "En cours de préparation",
               onPressed: () => goToEnCoursPreparation(),
               codeTraitement: 2,
             ),
@@ -67,7 +68,12 @@ class _VenteDashboardScreeState extends State<VenteDashboardScreen> {
               text: "En confirmation",
               onPressed: () => goToConfirmation(),
               codeTraitement: 3,
-            )
+            )  ,
+            VenteDashboardButton(
+              text: "Commande modifier",
+              onPressed: () => goToEnModification(),
+              codeTraitement: 5,
+            ),
           ],
         ),
       ),
@@ -89,12 +95,21 @@ class _VenteDashboardScreeState extends State<VenteDashboardScreen> {
     );
   }
 
+/*  Future goToCommandeModifier (){
+    return Get.to(CommandesModifierScreen(menu: NavigationMenu.VENTE_MODIFICATION)) ;
+  }*/
+
   Future goToEnCoursPreparation() {
-    return Get.to(globalController.menu ==
-            NavigationMenu.VENTE_EN_COURS_PREPARATION
+    return Get.to(globalController.menu == NavigationMenu.VENTE_EN_COURS_PREPARATION
         ? ListeCommandeScreen(menu: NavigationMenu.VENTE_EN_COURS_PREPARATION)
         : ListeCommandePeseeManuelleScreen(
             menu: NavigationMenu.VENTE_EN_COURS_PREPARATION));
+  }
+  Future goToEnModification() {
+    return Get.to(globalController.menu == NavigationMenu.VENTE_EN_COURS_PREPARATION
+        ? ListeCommandeScreen(menu: NavigationMenu.VENTE_EN_COURS_PREPARATION)
+        : ListeCommandePeseeManuelleScreen(
+            menu: NavigationMenu.VENTE_MODIFICATION));
   }
 
   refreshDashboard() {

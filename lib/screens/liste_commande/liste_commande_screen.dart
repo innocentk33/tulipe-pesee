@@ -120,6 +120,8 @@ class _ListeCommandeScreenState extends State<ListeCommandeScreen> {
     controller.getCommandes(widget.menu, controller.getStatusValue(widget.menu));
   }
 
+
+
   _updateCommandeStatus(Commande item) async {
     showLoadingDialog(context, message: "Veuillez patienter ...");
 

@@ -126,7 +126,7 @@ class _ListeCommandePeseeManuelleScreenState
 
   void updateNomPeseur(Commande commande) async {
     showInfoDialog(context,
-        message: "Voulez-vous traiterzer cette commande ?",
+        message: "Voulez-vous traiter cette commande ?",
         positiveLabel: "OUI", positiveAction: () async {
       showLoadingDialog(context, message: "Veuillez patienter ...");
       var response = await controller.updateNomPeseur(commande.no);

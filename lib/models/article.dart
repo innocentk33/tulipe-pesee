@@ -80,6 +80,7 @@ class Article {
   String cartonPeseur;
   double quantity_base;
   double budget;
+  bool modifier;
 
   Article({
     this.key,
@@ -161,6 +162,8 @@ class Article {
     this.cartonPeseur,
     this.budget,
     this.quantity_base,
+    this.modifier,
+
   });
 
   factory Article.fromXml(XmlElement personNode) {
@@ -227,6 +230,10 @@ class Article {
     var poids1Node = personNode.findAllElements('Total_1');
     var cartonPeseur = personNode.findAllElements("Cartons_peseur");
 
+    var modifierNode = personNode.findAllElements('IsModify');
+
+    bool modifierValue = modifierNode.isEmpty?false:(modifierNode.first.text == "true");
+
     return Article(
       key: keyValue,
       no: noValue,
@@ -248,6 +255,7 @@ class Article {
       controle: controleNode.isEmpty ? false : (controleNode.first.text == "true"),
       poids1: poids1Node.isEmpty ? "0" : (poids1Node.first.text),
       cartonPeseur: cartonPeseur.isEmpty ? "0" : (cartonPeseur.first.text),
+      modifier: modifierValue,
     );
   }
 }

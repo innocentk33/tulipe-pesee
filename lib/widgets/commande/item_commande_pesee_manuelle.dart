@@ -1,3 +1,4 @@
+import 'package:fish_scan/constants/strings.dart';
 import 'package:fish_scan/models/commande.dart';
 import 'package:flutter/material.dart';
 
@@ -96,6 +97,7 @@ class _ItemCommandePeseeManuelleState extends State<ItemCommandePeseeManuelle> {
                           "Vérificateur: ${commande.verificateur ?? ''}",),
                     ),
                     Text("Statut pesée: "),
+                    Text("${commande.modifier==true? 'A modifier':'Rien'}",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
                   ],
                 ),
               ),

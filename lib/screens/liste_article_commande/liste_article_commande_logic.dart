@@ -24,6 +24,8 @@ class ListeArticleCommandeController extends GetxController {
     _isLoading.value = false;
   }
 
+
+
   bool get isLoading => _isLoading.value;
 
   ApiResponse<Article> get response => _response;

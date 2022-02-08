@@ -85,6 +85,49 @@ class ArticleClient {
     }
 
     return response;
+
+  }
+  Future<ApiResponse<Article>> getArticlesVenteModifie(String commandeNo) async {
+    List<Article> items = List();
+
+    print("commande $commandeNo");
+
+    var body = '''
+    <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+    <Body>
+        <ReadMultiple xmlns="urn:microsoft-dynamics-schemas/page/lignesvente">
+            <filter>
+               <Field>Document_No</Field>
+                <Criteria>$commandeNo</Criteria>
+            </filter>   
+            <filter>
+               <Field>IsModify</Field>
+                <Criteria>true</Criteria>
+            </filter>
+            <bookmarkKey></bookmarkKey>
+            <setSize></setSize>
+        </ReadMultiple>
+      </Body>
+    </Envelope>
+    ''';
+
+    var response = await soapClient.post(
+        url: "Page/lignesvente",
+        action: 'urn:microsoft-dynamics-schemas/page/lignesvente',
+        body: body);
+
+    if (!response.hasError) {
+      final document = XmlDocument.parse(response.body);
+
+      var elements = document.findAllElements('lignesvente');
+      elements.forEach((element) {
+        items.add(Article.fromXml(element));
+      });
+
+      response.items = items;
+    }
+
+    return response;
   }
 
   Future<ApiResponse<Article>> getArticleAchatRapide() async {

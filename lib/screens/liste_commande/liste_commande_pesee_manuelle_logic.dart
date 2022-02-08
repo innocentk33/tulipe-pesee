@@ -69,6 +69,8 @@ class ListeCommandePeseeManuelleController extends GetxController {
         return StatusCommandeConstants.CONFIRMATION;
       case NavigationMenu.DEPOTAGE:
         return StatusCommandeConstants.DEPOTAGE;
+        case NavigationMenu.VENTE_MODIFICATION:
+        return StatusCommandeConstants.VENTE_MODIFICATION;
       default:
         return "";
     }

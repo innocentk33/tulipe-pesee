@@ -15,8 +15,7 @@ class ListeCommandeController extends GetxController {
   CommandeRepository commandeRepository = CommandeRepositoryImpl();
   TracabiliteRepository tracabiliteRepository = TracabiliteRepositoryImpl();
 
-  Future<ApiResponse<Commande>> getCommandes(
-      NavigationMenu menu, String statusCommande) async {
+  Future<ApiResponse<Commande>> getCommandes(NavigationMenu menu, String statusCommande) async {
     _isLoading.value = true;
     _response = await (menu == NavigationMenu.DEPOTAGE
         ? commandeRepository.getCommandesAchat(statusCommande)
@@ -42,6 +41,8 @@ class ListeCommandeController extends GetxController {
         return StatusCommandeConstants.CONFIRMATION;
       case NavigationMenu.DEPOTAGE:
         return StatusCommandeConstants.DEPOTAGE;
+        case NavigationMenu.VENTE_MODIFICATION:
+        return StatusCommandeConstants.VENTE_MODIFICATION;
       default:
         return "";
     }

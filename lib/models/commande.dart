@@ -31,6 +31,7 @@ class Commande {
     this.sellToCustomerName,
     this.creationDate,
     this.verificateur,
+    this.modifier,
   });
 
   String key;
@@ -61,6 +62,7 @@ class Commande {
   String sellToCustomerName;
   String creationDate;
   String verificateur;
+  bool modifier;
 
   factory Commande.fromXml(XmlElement personNode) {
     var traitementNode = personNode.findAllElements('Traitement');
@@ -85,6 +87,8 @@ class Commande {
 
     var verificateurNode =
         personNode.findAllElements('Verificateur');
+    var modifierNode = personNode.findAllElements('isModify');
+    bool modifierValue = modifierNode.isEmpty?false:modifierNode.first.text;
 
     return Commande(
       key: personNode.findAllElements('Key').first.text,
@@ -103,6 +107,7 @@ class Commande {
       creationDate: creationDateNode.isEmpty ? "" : creationDateNode.first.text,
       verificateur: verificateurNode.isEmpty ? null : verificateurNode.first.text,
       preparateur: preparateurNode.isEmpty ? null : preparateurNode.first.text,
+     modifier: modifierValue,
     );
   }
 }
