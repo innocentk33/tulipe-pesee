@@ -29,7 +29,8 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
+        child:
+        Column(
           children: [
             Expanded(
               child: Center(

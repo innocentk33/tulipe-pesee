@@ -97,7 +97,7 @@ class _ItemCommandePeseeManuelleState extends State<ItemCommandePeseeManuelle> {
                           "Vérificateur: ${commande.verificateur ?? ''}",),
                     ),
                     Text("Statut pesée: "),
-                    Text("${commande.modifier==true? 'A modifier':'Rien'}",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+                    Text("${commande.modifier==true? 'A modifier':''}",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
                   ],
                 ),
               ),

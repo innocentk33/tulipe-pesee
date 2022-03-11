@@ -70,7 +70,7 @@ class _VenteDashboardScreeState extends State<VenteDashboardScreen> {
               codeTraitement: 3,
             )  ,
             VenteDashboardButton(
-              text: "Commande modifier",
+              text: "Commande à modifier",
               onPressed: () => goToEnModification(),
               codeTraitement: 5,
             ),
